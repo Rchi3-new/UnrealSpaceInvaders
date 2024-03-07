@@ -2,13 +2,29 @@
 
 
 #include "PlayerShip.h"
+#include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 
 // Sets default values
 APlayerShip::APlayerShip()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	ShipCollision=CreateDefaultSubobject<USphereComponent>(TEXT("ShipCollision"));
+	ShipMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
+	ShipMovement=CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("ShipMovement"));
 
+	check(ShipCollision);
+	check(ShipMesh);
+	check((ShipMovement));
+		
+	SetRootComponent(ShipCollision);
+
+	ShipCollision->SetSphereRadius(50.0);
+	ShipCollision->SetCollisionProfileName(TEXT("Pawn"));
+	
+	ShipMesh->SetupAttachment(ShipCollision);
 }
 
 // Called when the game starts or when spawned

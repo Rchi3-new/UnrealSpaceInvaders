@@ -2,8 +2,10 @@
 
 
 #include "ShipPlayerController.h"
-#include "Public/PlayerCameraActor.h"
+
+//#include "PlayerCameraActor.h"
 #include "Kismet/GameplayStatics.h"
+#include "Public/PlayerCameraActor.h"
 
 void AShipPlayerController::BeginPlay()
 {
@@ -11,8 +13,8 @@ void AShipPlayerController::BeginPlay()
 	SetInputMode(FInputModeGameOnly());
 	AActor* CameraActor = UGameplayStatics::GetActorOfClass(GetWorld(), APlayerCameraActor::StaticClass());
 	CameraActor = Cast<class APlayerCameraActor>(CameraActor);
-	if(CameraActor)
-	{ 
+	if (CameraActor)
+	{
 		SetViewTargetWithBlend(CameraActor);
 	}
 }
