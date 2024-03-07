@@ -5,7 +5,7 @@
 
 //#include "PlayerCameraActor.h"
 #include "Kismet/GameplayStatics.h"
-#include "Public/PlayerCameraActor.h"
+#include "PlayerCameraActor.h"
 
 void AShipPlayerController::BeginPlay()
 {
