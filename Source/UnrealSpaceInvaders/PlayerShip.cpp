@@ -44,7 +44,6 @@ void APlayerShip::BeginPlay()
 			Subsystem->AddMappingContext(ShipInputMappingContext,0);
 		}
 	}
-	
 }
 void APlayerShip::Move(const FInputActionValue& Value)
 {
@@ -52,6 +51,31 @@ void APlayerShip::Move(const FInputActionValue& Value)
 	const FVector RightVector = GetActorRightVector();
 	AddMovementInput(RightVector,FloatValue);
 	
+}
+
+void APlayerShip::Attack(const FInputActionValue& Value)
+{
+	if(CanAttack)
+	{
+		CanAttack=false;
+		SpawnActor();
+		GetWorldTimerManager().SetTimer(ReloadTimerHandle, this, &APlayerShip::Reload, ReloadTime, false);
+	}
+}
+
+void APlayerShip::Reload()
+{
+	GetWorldTimerManager().ClearTimer(ReloadTimerHandle);
+	CanAttack = true;
+}
+
+void APlayerShip::SpawnActor()
+{
+	const FVector SpawnLocation = GetActorLocation() + FVector(0,0,10);
+	if (UWorld* World = GetWorld())
+	{
+		World->SpawnActor<AActor>(ActorToSpawn, SpawnLocation, FRotator::ZeroRotator);
+	}
 }
 
 // Called every frame
@@ -69,6 +93,7 @@ void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	if(UEnhancedInputComponent*EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered, this, &APlayerShip::Move);
+		EnhancedInputComponent->BindAction(AttackAction,ETriggerEvent::Triggered, this, &APlayerShip::Attack);
 	}
 }
 
