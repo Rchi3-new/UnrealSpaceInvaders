@@ -3,12 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputAction.h"
+#include "InputActionValue.h"
 #include "GameFramework/Pawn.h"
 #include "PlayerShip.generated.h"
 
 class USphereComponent;
 class UStaticMeshComponent;
 class UFloatingPawnMovement;
+class UInputMappingContext;
+struct FInputActionValue; 
 
 UCLASS()
 class UNREALSPACEINVADERS_API APlayerShip : public APawn
@@ -25,6 +29,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly) TObjectPtr<USphereComponent> ShipCollision;
 	UPROPERTY(EditDefaultsOnly) TObjectPtr<UStaticMeshComponent> ShipMesh;
 	UPROPERTY(EditDefaultsOnly) TObjectPtr<UFloatingPawnMovement> ShipMovement;
+	UPROPERTY(EditDefaultsOnly) TObjectPtr<UInputMappingContext> ShipInputMappingContext;
+	UPROPERTY(EditDefaultsOnly) TObjectPtr<UInputAction> MoveAction;
+
+	void Move(const FInputActionValue& Value);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

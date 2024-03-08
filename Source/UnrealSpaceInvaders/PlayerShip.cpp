@@ -5,6 +5,11 @@
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "ShipPlayerController.h"
+#include "EnhancedInputSubsystems.h"
+#include "EnhancedInputComponent.h"
+#include "Components/InputComponent.h"
+
 
 // Sets default values
 APlayerShip::APlayerShip()
@@ -31,6 +36,21 @@ APlayerShip::APlayerShip()
 void APlayerShip::BeginPlay()
 {
 	Super::BeginPlay();
+	const APlayerController*PlayerController = Cast<APlayerController>(GetController());
+	if(PlayerController)
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(ShipInputMappingContext,0);
+		}
+	}
+	
+}
+void APlayerShip::Move(const FInputActionValue& Value)
+{
+	const float FloatValue = Value.Get<float>();
+	const FVector RightVector = GetActorRightVector();
+	AddMovementInput(RightVector,FloatValue);
 	
 }
 
@@ -39,12 +59,16 @@ void APlayerShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
 }
 
 // Called to bind functionality to input
 void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	if(UEnhancedInputComponent*EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		EnhancedInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered, this, &APlayerShip::Move);
+	}
 }
 
