@@ -2,7 +2,7 @@
 
 
 #include "Projectile.h"
-
+#include "Hostile.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -26,7 +26,8 @@ AProjectile::AProjectile()
 	ProjectileCollisionCapsule->SetCapsuleHalfHeight(30.0);
 	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
 	ProjectileMesh->SetRelativeScale3D(FVector(0.4,0.4,0.6));
-	SetLifeSpan(4.0);
+	SetLifeSpan(3.0);
+	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 }
 
 // Called when the game starts or when spawned
@@ -34,6 +35,15 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void AProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if(Cast<AHostile>(OtherActor))
+	{
+		Destroy();
+	}
 }
 
 // Called every frame
