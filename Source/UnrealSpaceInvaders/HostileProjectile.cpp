@@ -1,0 +1,27 @@
+// No Copyright today, comrade.
+
+
+#include "HostileProjectile.h"
+
+// Sets default values
+AHostileProjectile::AHostileProjectile()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// Called when the game starts or when spawned
+void AHostileProjectile::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+// Called every frame
+void AHostileProjectile::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+}
+

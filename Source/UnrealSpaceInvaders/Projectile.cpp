@@ -23,7 +23,7 @@ AProjectile::AProjectile()
 	
 	SetRootComponent(ProjectileCollisionCapsule);
 	ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
-	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
+	ProjectileCollisionCapsule->SetCapsuleHalfHeight(30.0);
 	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
 	ProjectileMesh->SetRelativeScale3D(FVector(0.4,0.4,0.6));
 	SetLifeSpan(4.0);
