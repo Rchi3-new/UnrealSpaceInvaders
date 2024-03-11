@@ -48,6 +48,7 @@ void AProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
+
 {
 	Super::Tick(DeltaTime);
 

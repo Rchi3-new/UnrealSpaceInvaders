@@ -1,6 +1,6 @@
 // No Copyright today, comrade.
 
-
+#include "NiagaraFunctionLibrary.h"
 #include "Hostile.h"
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
@@ -23,6 +23,7 @@ AHostile::AHostile()
 	HostileMesh->SetupAttachment(HostileCollision);
 	HostileCollision->SetBoxExtent(FVector(51.0,51.0,51.0));
 	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
+	NiagaraEffect=LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
 }
 
 // Called when the game starts or when spawned
@@ -37,7 +38,17 @@ void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 {
 	if(Cast<AProjectile>(OtherActor))
 	{
+		HostileDestroyFX();
 		Destroy();
+	}
+}
+
+void AHostile::HostileDestroyFX() const
+
+{
+	if(NiagaraEffect)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), NiagaraEffect, GetActorLocation());
 	}
 }
 
