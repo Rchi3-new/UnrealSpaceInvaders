@@ -4,6 +4,7 @@
 #include "Hostile.h"
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AHostile::AHostile()
@@ -24,6 +25,7 @@ AHostile::AHostile()
 	HostileCollision->SetBoxExtent(FVector(51.0,51.0,51.0));
 	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 	NiagaraEffect=LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
+	BlastSound=LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
 }
 
 // Called when the game starts or when spawned
@@ -39,6 +41,7 @@ void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 	if(Cast<AProjectile>(OtherActor))
 	{
 		HostileDestroyFX();
+		DestroySound();
 		Destroy();
 	}
 }
@@ -49,6 +52,14 @@ void AHostile::HostileDestroyFX() const
 	if(NiagaraEffect)
 	{
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), NiagaraEffect, GetActorLocation());
+	}
+}
+
+void AHostile::DestroySound() const
+{
+	if(BlastSound)
+	{
+		UGameplayStatics::PlaySound2D(this, BlastSound);
 	}
 }
 
