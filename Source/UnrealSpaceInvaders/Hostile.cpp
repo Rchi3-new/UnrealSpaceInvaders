@@ -1,7 +1,7 @@
 // No Copyright today, comrade.
 
-#include "NiagaraFunctionLibrary.h"
 #include "Hostile.h"
+#include "NiagaraFunctionLibrary.h"
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -16,10 +16,8 @@ AHostile::AHostile()
 	HostileCollision=CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
 	HostileMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HostileMesh"));
 
-
 	check(HostileCollision);
 	check(HostileMesh);
-
 
 	SetRootComponent(HostileCollision);
 	HostileMesh->SetupAttachment(HostileCollision);
@@ -71,7 +69,7 @@ void AHostile::DestroySound() const
 	}
 }
 
-void AHostile::ChangeMovementDirection()
+void AHostile::ChangeMovementDirection() const
 {
 	TArray<AActor*> OutActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), StaticClass(), OutActors);
@@ -83,7 +81,6 @@ void AHostile::ChangeMovementDirection()
 				HostileActorDude->MoveDirection *= -1.0;
 			}
 	}
-	// MoveDirection *= -1.0;
 }
 
 void AHostile::Move()
