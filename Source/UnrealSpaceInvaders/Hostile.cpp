@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/BrushComponent.h"
 
 // Sets default values
 AHostile::AHostile()
@@ -32,7 +33,10 @@ AHostile::AHostile()
 void AHostile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	if (FTimerHandle MoveTimer; !MoveTimer.IsValid())
+	{
+		GetWorldTimerManager().SetTimer(MoveTimer, this, &ThisClass::Move, 0.05, true);
+	}
 }
 
 void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -43,6 +47,10 @@ void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 		HostileDestroyFX();
 		DestroySound();
 		Destroy();
+	}
+	else if (Cast<UBrushComponent>(OtherComp))
+	{
+		ChangeMovementDirection();
 	}
 }
 
@@ -61,6 +69,27 @@ void AHostile::DestroySound() const
 	{
 		UGameplayStatics::PlaySound2D(this, BlastSound);
 	}
+}
+
+void AHostile::ChangeMovementDirection()
+{
+	TArray<AActor*> OutActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), StaticClass(), OutActors);
+	for (AActor* HostileActor :  OutActors)
+	{
+		if
+		(AHostile* HostileActorDude = Cast<AHostile>(HostileActor))
+			{
+				HostileActorDude->MoveDirection *= -1.0;
+			}
+	}
+	// MoveDirection *= -1.0;
+}
+
+void AHostile::Move()
+{
+	const FVector NewLocation = GetActorLocation() + FVector(0.0, MoveDirection, 0.0);
+	SetActorLocation(NewLocation);
 }
 
 // Called every frame
