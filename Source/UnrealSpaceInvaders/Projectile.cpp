@@ -23,10 +23,10 @@ AProjectile::AProjectile()
 	
 	SetRootComponent(ProjectileCollisionCapsule);
 	ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
-	ProjectileCollisionCapsule->SetCapsuleHalfHeight(30.0);
+	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
 	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
 	ProjectileMesh->SetRelativeScale3D(FVector(0.4,0.4,0.6));
-	SetLifeSpan(3.0);
+    AActor::SetLifeSpan(3.0);
 	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 }
 
@@ -34,7 +34,6 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -51,6 +50,5 @@ void AProjectile::Tick(float DeltaTime)
 
 {
 	Super::Tick(DeltaTime);
-
 }
 
