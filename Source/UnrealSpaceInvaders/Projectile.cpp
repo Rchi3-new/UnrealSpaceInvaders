@@ -1,17 +1,12 @@
-// No Copyright today, comrade.
-
-
 #include "Projectile.h"
 #include "Hostile.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
-// Sets default values
 AProjectile::AProjectile()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	PrimaryActorTick.bCanEverTick = true;
 
 	ProjectileCollisionCapsule=CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
 	ProjectileMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
@@ -30,7 +25,6 @@ AProjectile::AProjectile()
 	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 }
 
-// Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
@@ -45,7 +39,6 @@ void AProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	}
 }
 
-// Called every frame
 void AProjectile::Tick(float DeltaTime)
 
 {

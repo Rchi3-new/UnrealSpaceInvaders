@@ -1,5 +1,3 @@
-// No Copyright today, comrade.
-
 #include "Hostile.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Projectile.h"
@@ -7,11 +5,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/BrushComponent.h"
 
-// Sets default values
 AHostile::AHostile()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	PrimaryActorTick.bCanEverTick = true;
 
 	HostileCollision=CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
 	HostileMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HostileMesh"));
@@ -27,7 +23,6 @@ AHostile::AHostile()
 	BlastSound=LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
 }
 
-// Called when the game starts or when spawned
 void AHostile::BeginPlay()
 {
 	Super::BeginPlay();
@@ -89,7 +84,6 @@ void AHostile::Move()
 	SetActorLocation(NewLocation);
 }
 
-// Called every frame
 void AHostile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
