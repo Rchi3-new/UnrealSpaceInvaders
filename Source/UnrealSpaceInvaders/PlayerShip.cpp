@@ -2,35 +2,32 @@
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
-#include "ShipPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Components/InputComponent.h"
 
 APlayerShip::APlayerShip()
 {
-	PrimaryActorTick.bCanEverTick = true;
-	ShipCollision=CreateDefaultSubobject<USphereComponent>(TEXT("ShipCollision"));
-	ShipMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
-	ShipMovement=CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("ShipMovement"));
+	ShipCollision = CreateDefaultSubobject<USphereComponent>(TEXT("ShipCollision"));
+	ShipMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
+	ShipMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("ShipMovement"));
 
 	check(ShipCollision);
 	check(ShipMesh);
-	check((ShipMovement));
+	check(ShipMovement);
 		
 	SetRootComponent(ShipCollision);
 
 	ShipCollision->SetSphereRadius(50.0);
 	ShipCollision->SetCollisionProfileName(TEXT("Pawn"));
-	
+		
 	ShipMesh->SetupAttachment(ShipCollision);
 }
 
 void APlayerShip::BeginPlay()
 {
 	Super::BeginPlay();
-	const APlayerController*PlayerController = Cast<APlayerController>(GetController());
-	if(PlayerController)
+	if(const APlayerController*PlayerController = Cast<APlayerController>(GetController()))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
@@ -43,7 +40,6 @@ void APlayerShip::Move(const FInputActionValue& Value)
 	const float FloatValue = Value.Get<float>();
 	const FVector RightVector = GetActorRightVector();
 	AddMovementInput(RightVector,FloatValue);
-	
 }
 
 void APlayerShip::Attack(const FInputActionValue& Value)
@@ -62,9 +58,9 @@ void APlayerShip::Reload()
 	CanAttack = true;
 }
 
-void APlayerShip::SpawnActor()
+void APlayerShip::SpawnActor() const
 {
-	const FVector SpawnLocation = GetActorLocation() + FVector(0,0,10);
+	const FVector SpawnLocation = GetActorLocation() + FVector(0.0,0.0,100.0);
 	if (UWorld* World = GetWorld())
 	{
 		World->SpawnActor<AActor>(ActorToSpawn, SpawnLocation, FRotator::ZeroRotator);
@@ -74,8 +70,6 @@ void APlayerShip::SpawnActor()
 void APlayerShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-
 }
 
 void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

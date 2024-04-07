@@ -51,11 +51,11 @@ protected:
 	void Move(const FInputActionValue& Value);
 	void Attack(const FInputActionValue& Value);
 	void Reload();
-	void SpawnActor();
+	void SpawnActor() const;
 	
-public:	
+public:
+	
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };
