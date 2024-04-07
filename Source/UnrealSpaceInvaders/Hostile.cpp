@@ -1,4 +1,6 @@
 #include "Hostile.h"
+
+#include "HostileProjectile.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
@@ -7,9 +9,7 @@
 
 AHostile::AHostile()
 {
- 	PrimaryActorTick.bCanEverTick = true;
-
-	HostileCollision=CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
+ 	HostileCollision=CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
 	HostileMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HostileMesh"));
 
 	check(HostileCollision);
@@ -21,11 +21,14 @@ AHostile::AHostile()
 	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 	NiagaraEffect=LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
 	BlastSound=LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
+	// ActorProjectile=LoadObject<>(nullptr, TEXT("Game/Hostiles/Projectile/BP_HostileProjectile"));
 }
 
 void AHostile::BeginPlay()
 {
 	Super::BeginPlay();
+	BeginFire();
+	
 	if (FTimerHandle MoveTimer; !MoveTimer.IsValid())
 	{
 		GetWorldTimerManager().SetTimer(MoveTimer, this, &ThisClass::Move, 0.05, true);
@@ -84,9 +87,42 @@ void AHostile::Move()
 	SetActorLocation(NewLocation);
 }
 
-void AHostile::Tick(float DeltaTime)
+void AHostile::BeginFire()
 {
-	Super::Tick(DeltaTime);
+	const float FireDelay = FMath::RandRange(2.0,5.0);
+	if (!ReloadTimerHandle.IsValid())
+	{
+		GetWorldTimerManager().SetTimer(ReloadTimerHandle, this, &AHostile::SpawnProjectile, FireDelay, false);
+	}
+}
 
+void AHostile::SpawnProjectile()
+{
+	ProjectileCheck();
+	if (ProjectileCounter < ProjectileMax)
+	{
+		const FVector SpawnLocation = GetActorLocation() + FVector(0.0,0.0,-100.0);
+
+		if (UWorld* World = GetWorld())
+		{
+			World->SpawnActor<AActor>(ActorProjectile, SpawnLocation, FRotator(0,0,0));
+			GetWorldTimerManager().ClearTimer(ReloadTimerHandle);
+			BeginFire();
+		}
+	}
+}
+
+void AHostile::ProjectileCheck()
+{
+	TArray<AActor*> OutActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AHostile::StaticClass(), OutActors);
+
+	TArray<AHostileProjectile*> ProjectilesArray;
+	for (AActor* Actor: OutActors)
+		if(AProjectile* Projectile = Cast<AProjectile>(Actor))
+		{
+			ProjectilesArray.Add(TArray<AHostileProjectile*>::ElementType(Projectile));
+			ProjectileCounter = ProjectilesArray.Num();
+		}
 }
 

@@ -4,6 +4,10 @@
 #include "GameFramework/Actor.h"
 #include "HostileProjectile.generated.h"
 
+class UCapsuleComponent;
+class UStaticMeshComponent;
+class UProjectileMovementComponent;
+
 UCLASS()
 class UNREALSPACEINVADERS_API AHostileProjectile : public AActor
 {
@@ -13,9 +17,16 @@ public:
 	AHostileProjectile();
 
 protected:
-	virtual void BeginPlay() override;
+	
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UCapsuleComponent> ProjectileCollisionCapsule;
 
-public:	
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
 
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UProjectileMovementComponent>ProjectileMovement;
+
+	UFUNCTION()
+	void HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

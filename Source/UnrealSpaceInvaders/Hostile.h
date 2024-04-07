@@ -34,7 +34,13 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<USoundBase> BlastSound;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AActor> ActorProjectile;
+
+	FTimerHandle ReloadTimerHandle;
 	double MoveDirection = -1.0;
+	int32 ProjectileCounter;
+	const int32 ProjectileMax = 10;
 	
 	UFUNCTION()
 	void HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -51,7 +57,10 @@ protected:
 	UFUNCTION()
 	void Move();
 
-public:	
-	virtual void Tick(float DeltaTime) override;
+	UFUNCTION()
+	void BeginFire();
 
+	UFUNCTION()
+	void SpawnProjectile();
+	void ProjectileCheck();
 };
