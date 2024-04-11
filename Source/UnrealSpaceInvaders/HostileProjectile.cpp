@@ -18,7 +18,6 @@ AHostileProjectile::AHostileProjectile()
 	SetRootComponent(ProjectileCollisionCapsule);
 	ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
 	ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
-	ProjectileMesh->SetRelativeRotation(FRotator(180.0, 0.0, 0.0));
 	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
 	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
 	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);

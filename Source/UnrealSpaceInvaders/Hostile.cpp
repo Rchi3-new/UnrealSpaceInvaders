@@ -20,7 +20,6 @@ AHostile::AHostile()
 	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 	NiagaraEffect = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
 	BlastSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
-	// ActorProjectile=LoadObject<>(nullptr, TEXT("Game/Hostiles/Projectile/BP_HostileProjectile"));
 }
 
 void AHostile::BeginPlay()
@@ -115,13 +114,15 @@ void AHostile::SpawnProjectile()
 void AHostile::ProjectileCheck()
 {
 	TArray<AActor*> OutActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AHostile::StaticClass(), OutActors);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AHostileProjectile::StaticClass(), OutActors);
 
 	TArray<AHostileProjectile*> ProjectilesArray;
 	for (AActor* Actor : OutActors)
-		if (AProjectile* Projectile = Cast<AProjectile>(Actor))
+	{
+		if (AHostileProjectile* Projectile = Cast<AHostileProjectile>(Actor))
 		{
-			ProjectilesArray.Add(reinterpret_cast<TArray<AHostileProjectile*>::ElementType>(Projectile));
-			ProjectileCounter = ProjectilesArray.Num();
+			ProjectilesArray.Add(Projectile);
 		}
+	}
+	ProjectileCounter = ProjectilesArray.Num();
 }

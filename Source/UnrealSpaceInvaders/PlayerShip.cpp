@@ -21,6 +21,7 @@ APlayerShip::APlayerShip()
 	SetRootComponent(ShipCollision);
 	ShipCollision->SetSphereRadius(50.0);
 	ShipCollision->SetCollisionProfileName(TEXT("Pawn"));
+	ShipCollision->OnComponentBeginOverlap.AddDynamic(this, &APlayerShip::PlayerShipOverlap);
 	ShipMesh->SetupAttachment(ShipCollision);
 }
 
