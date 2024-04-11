@@ -1,5 +1,4 @@
 #include "Hostile.h"
-
 #include "HostileProjectile.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Projectile.h"
@@ -9,18 +8,18 @@
 
 AHostile::AHostile()
 {
- 	HostileCollision=CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
-	HostileMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HostileMesh"));
+	HostileCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
+	HostileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HostileMesh"));
 
 	check(HostileCollision);
 	check(HostileMesh);
 
 	SetRootComponent(HostileCollision);
 	HostileMesh->SetupAttachment(HostileCollision);
-	HostileCollision->SetBoxExtent(FVector(51.0,51.0,51.0));
+	HostileCollision->SetBoxExtent(FVector(51.0, 51.0, 51.0));
 	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
-	NiagaraEffect=LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
-	BlastSound=LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
+	NiagaraEffect = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
+	BlastSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
 	// ActorProjectile=LoadObject<>(nullptr, TEXT("Game/Hostiles/Projectile/BP_HostileProjectile"));
 }
 
@@ -28,7 +27,7 @@ void AHostile::BeginPlay()
 {
 	Super::BeginPlay();
 	BeginFire();
-	
+
 	if (FTimerHandle MoveTimer; !MoveTimer.IsValid())
 	{
 		GetWorldTimerManager().SetTimer(MoveTimer, this, &ThisClass::Move, 0.05, true);
@@ -36,9 +35,10 @@ void AHostile::BeginPlay()
 }
 
 void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                              UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+                              const FHitResult& SweepResult)
 {
-	if(Cast<AProjectile>(OtherActor))
+	if (Cast<AProjectile>(OtherActor))
 	{
 		HostileDestroyFX();
 		DestroySound();
@@ -53,7 +53,7 @@ void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 void AHostile::HostileDestroyFX() const
 
 {
-	if(NiagaraEffect)
+	if (NiagaraEffect)
 	{
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), NiagaraEffect, GetActorLocation());
 	}
@@ -61,7 +61,7 @@ void AHostile::HostileDestroyFX() const
 
 void AHostile::DestroySound() const
 {
-	if(BlastSound)
+	if (BlastSound)
 	{
 		UGameplayStatics::PlaySound2D(this, BlastSound);
 	}
@@ -71,13 +71,13 @@ void AHostile::ChangeMovementDirection() const
 {
 	TArray<AActor*> OutActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), StaticClass(), OutActors);
-	for (AActor* HostileActor :  OutActors)
+	for (AActor* HostileActor : OutActors)
 	{
 		if
 		(AHostile* HostileActorDude = Cast<AHostile>(HostileActor))
-			{
-				HostileActorDude->MoveDirection *= -1.0;
-			}
+		{
+			HostileActorDude->MoveDirection *= -1.0;
+		}
 	}
 }
 
@@ -89,7 +89,7 @@ void AHostile::Move()
 
 void AHostile::BeginFire()
 {
-	const float FireDelay = FMath::RandRange(2.0,5.0);
+	const float FireDelay = FMath::RandRange(2.0, 5.0);
 	if (!ReloadTimerHandle.IsValid())
 	{
 		GetWorldTimerManager().SetTimer(ReloadTimerHandle, this, &AHostile::SpawnProjectile, FireDelay, false);
@@ -101,11 +101,11 @@ void AHostile::SpawnProjectile()
 	ProjectileCheck();
 	if (ProjectileCounter < ProjectileMax)
 	{
-		const FVector SpawnLocation = GetActorLocation() + FVector(0.0,0.0,-100.0);
+		const FVector SpawnLocation = GetActorLocation() + FVector(0.0, 0.0, -100.0);
 
 		if (UWorld* World = GetWorld())
 		{
-			World->SpawnActor<AActor>(ActorProjectile, SpawnLocation, FRotator(0,0,0));
+			World->SpawnActor<AActor>(ActorProjectile, SpawnLocation, FRotator(0, 0, 0));
 			GetWorldTimerManager().ClearTimer(ReloadTimerHandle);
 			BeginFire();
 		}
@@ -118,11 +118,10 @@ void AHostile::ProjectileCheck()
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AHostile::StaticClass(), OutActors);
 
 	TArray<AHostileProjectile*> ProjectilesArray;
-	for (AActor* Actor: OutActors)
-		if(AProjectile* Projectile = Cast<AProjectile>(Actor))
+	for (AActor* Actor : OutActors)
+		if (AProjectile* Projectile = Cast<AProjectile>(Actor))
 		{
 			ProjectilesArray.Add(reinterpret_cast<TArray<AHostileProjectile*>::ElementType>(Projectile));
 			ProjectileCounter = ProjectilesArray.Num();
 		}
 }
-

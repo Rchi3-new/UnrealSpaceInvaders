@@ -1,6 +1,5 @@
 #include "Projectile.h"
 #include "Hostile.h"
-#include "PlayerShip.h"
 #include "Components/BrushComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"

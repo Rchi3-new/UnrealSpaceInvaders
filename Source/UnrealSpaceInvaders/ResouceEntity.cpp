@@ -20,7 +20,6 @@ void UResouceEntity::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
 }
 
 
@@ -31,4 +30,3 @@ void UResouceEntity::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 	// ...
 }
-

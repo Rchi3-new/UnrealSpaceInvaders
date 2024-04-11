@@ -9,6 +9,7 @@ UCLASS()
 class UNREALSPACEINVADERS_API AShipPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
 protected:
 	virtual void BeginPlay() override;
 };

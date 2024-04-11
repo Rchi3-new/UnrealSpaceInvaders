@@ -8,5 +8,4 @@ UCLASS()
 class UNREALSPACEINVADERS_API APlayerCameraActor : public ACameraActor
 {
 	GENERATED_BODY()
-	
 };

@@ -12,12 +12,11 @@ UCLASS()
 class UNREALSPACEINVADERS_API AHostileProjectile : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	AHostileProjectile();
 
 protected:
-	
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UCapsuleComponent> ProjectileCollisionCapsule;
 
@@ -25,8 +24,9 @@ protected:
 	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
 
 	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UProjectileMovementComponent>ProjectileMovement;
+	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
 	UFUNCTION()
-	void HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	                    int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

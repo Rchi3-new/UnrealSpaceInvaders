@@ -15,38 +15,38 @@ APlayerShip::APlayerShip()
 	check(ShipCollision);
 	check(ShipMesh);
 	check(ShipMovement);
-		
-	SetRootComponent(ShipCollision);
 
+	SetRootComponent(ShipCollision);
 	ShipCollision->SetSphereRadius(50.0);
 	ShipCollision->SetCollisionProfileName(TEXT("Pawn"));
-		
 	ShipMesh->SetupAttachment(ShipCollision);
 }
 
 void APlayerShip::BeginPlay()
 {
 	Super::BeginPlay();
-	if(const APlayerController*PlayerController = Cast<APlayerController>(GetController()))
+	if (const APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<
+			UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
-			Subsystem->AddMappingContext(ShipInputMappingContext,0);
+			Subsystem->AddMappingContext(ShipInputMappingContext, 0);
 		}
 	}
 }
+
 void APlayerShip::Move(const FInputActionValue& Value)
 {
 	const float FloatValue = Value.Get<float>();
 	const FVector RightVector = GetActorRightVector();
-	AddMovementInput(RightVector,FloatValue);
+	AddMovementInput(RightVector, FloatValue);
 }
 
 void APlayerShip::Attack(const FInputActionValue& Value)
 {
-	if(CanAttack)
+	if (CanAttack)
 	{
-		CanAttack=false;
+		CanAttack = false;
 		SpawnActor();
 		GetWorldTimerManager().SetTimer(ReloadTimerHandle, this, &APlayerShip::Reload, ReloadTime, false);
 	}
@@ -60,7 +60,7 @@ void APlayerShip::Reload()
 
 void APlayerShip::SpawnActor() const
 {
-	const FVector SpawnLocation = GetActorLocation() + FVector(0.0,0.0,100.0);
+	const FVector SpawnLocation = GetActorLocation() + FVector(0.0, 0.0, 100.0);
 	if (UWorld* World = GetWorld())
 	{
 		World->SpawnActor<AActor>(ActorToSpawn, SpawnLocation, FRotator::ZeroRotator);
@@ -70,10 +70,9 @@ void APlayerShip::SpawnActor() const
 void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	if(UEnhancedInputComponent*EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered, this, &APlayerShip::Move);
-		EnhancedInputComponent->BindAction(AttackAction,ETriggerEvent::Triggered, this, &APlayerShip::Attack);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerShip::Move);
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &APlayerShip::Attack);
 	}
 }
-

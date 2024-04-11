@@ -2,7 +2,7 @@
 
 UWeaponComponent::UWeaponComponent()
 {
-		PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = true;
 }
 
 void UWeaponComponent::BeginPlay()
@@ -10,8 +10,8 @@ void UWeaponComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
-void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType,
+                                     FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
-

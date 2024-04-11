@@ -10,7 +10,7 @@ class USphereComponent;
 class UStaticMeshComponent;
 class UFloatingPawnMovement;
 class UInputMappingContext;
-struct FInputActionValue; 
+struct FInputActionValue;
 
 UCLASS()
 class UNREALSPACEINVADERS_API APlayerShip : public APawn
@@ -22,7 +22,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<USphereComponent> ShipCollision;
 
@@ -43,18 +43,16 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UInputAction> AttackAction;
-	
+
 	FTimerHandle ReloadTimerHandle;
 	bool CanAttack = true;
 	float ReloadTime = 0.5;
-	
+
 	void Move(const FInputActionValue& Value);
 	void Attack(const FInputActionValue& Value);
 	void Reload();
 	void SpawnActor() const;
-	
+
 public:
-	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
 };
