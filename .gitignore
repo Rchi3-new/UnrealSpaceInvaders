@@ -79,6 +79,9 @@ DerivedDataCache/*
 #Imported assets
 /Import/**/*
 
+#Cleanup batch
+Cleanproject.bat
+
 # .vsconfig
 .vsconfig
 =======
