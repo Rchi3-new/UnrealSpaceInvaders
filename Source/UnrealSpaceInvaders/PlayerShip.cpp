@@ -4,7 +4,9 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "HostileProjectile.h"
 #include "Components/InputComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 APlayerShip::APlayerShip()
 {
@@ -35,6 +37,17 @@ void APlayerShip::BeginPlay()
 	}
 }
 
+void APlayerShip::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+                                    UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+                                    const FHitResult& SweepResult)
+{
+	if (Cast<AHostileProjectile>(OtherActor))
+	{
+		ShipMesh->SetVisibility(false);
+		PlayerDeath();
+	}
+}
+
 void APlayerShip::Move(const FInputActionValue& Value)
 {
 	const float FloatValue = Value.Get<float>();
@@ -52,13 +65,18 @@ void APlayerShip::Attack(const FInputActionValue& Value)
 	}
 }
 
+void APlayerShip::PlayerDeath()
+{
+	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+}
+
 void APlayerShip::Reload()
 {
 	GetWorldTimerManager().ClearTimer(ReloadTimerHandle);
 	CanAttack = true;
 }
 
-void APlayerShip::SpawnActor() const
+void APlayerShip::SpawnActor()
 {
 	const FVector SpawnLocation = GetActorLocation() + FVector(0.0, 0.0, 100.0);
 	if (UWorld* World = GetWorld())

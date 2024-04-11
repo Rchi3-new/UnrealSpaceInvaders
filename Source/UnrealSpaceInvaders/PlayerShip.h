@@ -44,14 +44,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UInputAction> AttackAction;
 
+	UFUNCTION()
+	void PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	                    int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 	FTimerHandle ReloadTimerHandle;
 	bool CanAttack = true;
 	float ReloadTime = 0.5;
-
 	void Move(const FInputActionValue& Value);
 	void Attack(const FInputActionValue& Value);
+	void PlayerDeath();
 	void Reload();
-	void SpawnActor() const;
+	void SpawnActor();
 
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
