@@ -1,12 +1,8 @@
 # Visual Studio 2015 user specific files
 .vs/
 
-# User-specific stuff
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+# Rider for Unreal files
+.idea/
 
 # Compiled Object files
 *.slo
@@ -48,10 +44,6 @@
 *.VC.db
 *.VC.opendb
 
-# Precompiled Assets
-SourceArt/**/*.png
-SourceArt/**/*.tga
-
 # Binary Files
 Binaries/*
 Plugins/*/Binaries/*
@@ -79,3 +71,12 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Raw content
+/RawContent/**/*
+
+#Imported assets
+/Import/**/*
+
+# .vsconfig
+.vsconfig
