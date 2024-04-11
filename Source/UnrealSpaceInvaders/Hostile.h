@@ -28,10 +28,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UStaticMeshComponent> HostileMesh;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TObjectPtr<UNiagaraSystem> NiagaraEffect;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TObjectPtr<USoundBase> BlastSound;
 
 	UPROPERTY(EditDefaultsOnly)
@@ -40,7 +40,7 @@ protected:
 	FTimerHandle ReloadTimerHandle;
 	double MoveDirection = -1.0;
 	int32 ProjectileCounter;
-	const int32 ProjectileMax = 10;
+	const int32 ProjectileMax = 8;
 	
 	UFUNCTION()
 	void HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

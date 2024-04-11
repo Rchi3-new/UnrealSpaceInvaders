@@ -121,7 +121,7 @@ void AHostile::ProjectileCheck()
 	for (AActor* Actor: OutActors)
 		if(AProjectile* Projectile = Cast<AProjectile>(Actor))
 		{
-			ProjectilesArray.Add(TArray<AHostileProjectile*>::ElementType(Projectile));
+			ProjectilesArray.Add(reinterpret_cast<TArray<AHostileProjectile*>::ElementType>(Projectile));
 			ProjectileCounter = ProjectilesArray.Num();
 		}
 }

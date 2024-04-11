@@ -67,11 +67,6 @@ void APlayerShip::SpawnActor() const
 	}
 }
 
-void APlayerShip::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
