@@ -72,6 +72,7 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
+<<<<<<< Updated upstream
 # Raw content
 /RawContent/**/*
 
@@ -80,3 +81,8 @@ DerivedDataCache/*
 
 # .vsconfig
 .vsconfig
+=======
+#Imported fbx etc files
+Content/Import/*
+/RawContent/*
+>>>>>>> Stashed changes
