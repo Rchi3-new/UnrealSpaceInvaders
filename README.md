@@ -9,10 +9,12 @@ This project is a modern implementation of the iconic Space Invaders game using 
 ### How to Play
 
 1. Clone the Repository:
+
+```
 git clone https://github.com/Rchi3-new/UnrealSpaceInvaders.git
+```
 
-
-2. Open in Unreal Engine 5:
+3. Open in Unreal Engine 5:
 - Navigate to the cloned repository.
 - Open the project.
 
