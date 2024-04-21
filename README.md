@@ -16,7 +16,9 @@ git clone https://github.com/Rchi3-new/UnrealSpaceInvaders.git
 
 3. Open in Unreal Engine 5:
 - Navigate to the cloned repository.
-- Open the project.
+- RMB click on UnrealSpaceInvaders.uproject and chose option Generate Visual Studio project files
+- Wait till UE complete generate project files.
+- Open the project UnrealSpaceInvaders.uproject
 
 3. Build and Play:
 - Once the project is open, build the project.
