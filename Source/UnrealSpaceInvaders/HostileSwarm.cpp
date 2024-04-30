@@ -21,7 +21,7 @@ void AHostileSwarm::SpawnHostiles() const
 
 	for (int32 j = 1; j < CountZ; j++)
 	{
-		constexpr int32 CountY = 15;
+		constexpr int32 CountY = 11;
 		for (int32 i = 0; i < CountY; i++)
 		{
 			if (UWorld* World = GetWorld())
