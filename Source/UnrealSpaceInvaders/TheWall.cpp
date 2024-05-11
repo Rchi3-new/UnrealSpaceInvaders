@@ -10,20 +10,18 @@ void ATheWall::BeginPlay()
 
 void ATheWall::ConstructWall()
 {
-	const int32 Count = 20;
-	const double Spacing = 10.0;
+	constexpr int32 Count = 20;
 	for (int32 j = 0; j < Count; j++)
 	{
 		for (int32 i = 0; i < Count; i++)
 		{
-			UStaticMeshComponent* WallComponent = NewObject<UStaticMeshComponent>(
-				this, UStaticMeshComponent::StaticClass());
-			if (WallComponent)
+			if (UStaticMeshComponent* WallComponent = NewObject<UStaticMeshComponent>(
+				this, UStaticMeshComponent::StaticClass()))
 			{
-				UStaticMesh* WallMesh = LoadObject<UStaticMesh>(
-					nullptr, TEXT("StaticMesh'/Game/Hostiles/Mesh/SM_Cube.SM_Cube'"));
-				if (WallMesh)
+				if (UStaticMesh* WallMesh = LoadObject<UStaticMesh>(
+					nullptr, TEXT("StaticMesh'/Game/Hostiles/Mesh/SM_Cube.SM_Cube'")))
 				{
+					constexpr double Spacing = 10.0;
 					WallComponent->SetStaticMesh(WallMesh);
 					WallComponent->SetupAttachment(RootComponent);
 					WallComponent->SetRelativeTransform(

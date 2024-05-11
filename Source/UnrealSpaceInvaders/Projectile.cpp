@@ -9,17 +9,17 @@
 
 AProjectile::AProjectile()
 {
- 	ProjectileCollisionCapsule=CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
-	ProjectileMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
-	ProjectileMovement=CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
-	
+	ProjectileCollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
+	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
+
 	check(ProjectileCollisionCapsule);
 	check(ProjectileMesh);
 	check(ProjectileMovement);
-	
+
 	SetRootComponent(ProjectileCollisionCapsule);
 	ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
-	ProjectileMesh->SetRelativeScale3D(FVector(0.4,0.4,0.6));
+	ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
 	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
 	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
 	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
@@ -32,8 +32,8 @@ void AProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent,
                                  bool bFromSweep,
                                  const FHitResult& SweepResult)
 {
-	if(Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherComp))
+	if (Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherComp))
 	{
-		Destroy();			
+		Destroy();
 	}
 }

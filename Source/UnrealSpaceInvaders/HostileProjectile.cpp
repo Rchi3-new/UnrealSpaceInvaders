@@ -22,10 +22,10 @@ AHostileProjectile::AHostileProjectile()
 	ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
 	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
 	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
-	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
+	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::PlayerShipOverlap);
 }
 
-void AHostileProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent,
+void AHostileProjectile::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
 										AActor* OtherActor,
                                         UPrimitiveComponent* OtherComp,
                                         int32 OtherBodyIndex,
