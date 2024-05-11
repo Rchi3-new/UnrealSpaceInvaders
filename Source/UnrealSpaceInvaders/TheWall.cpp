@@ -29,21 +29,21 @@ void ATheWall::ConstructWall()
 					WallComponent->SetRelativeTransform(
 						FTransform(FRotator::ZeroRotator, FVector(0.0, i * Spacing, j * Spacing), FVector(0.1, 0.1, 0.1)));
 					WallComponent->RegisterComponent();
-					WallComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::WallOvelap);
+					WallComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::WallOverlap);
 				}
 			}
 		}
 	}
 }
 
-void ATheWall::WallOvelap(UPrimitiveComponent* OverlappedComponent,
+void ATheWall::WallOverlap(UPrimitiveComponent* OverlappedComponent,
                           AActor* OtherActor,
                           UPrimitiveComponent* OtherComp,
                           int32 OtherBodyIndex,
                           bool bFromSweep,
                           const FHitResult& SweepResult)
 {
-	if(Cast<AHostileProjectile>(OtherActor)||Cast<AProjectile>(OtherActor))
+	if(Cast<AHostileProjectile>(OtherActor) || Cast<AProjectile>(OtherActor))
 	{
 		if(OverlappedComponent)
 		{

@@ -16,7 +16,7 @@ protected:
 	void ConstructWall();
 	
 	UFUNCTION()
-	void WallOvelap(UPrimitiveComponent* OverlappedComponent,
+	void WallOverlap(UPrimitiveComponent* OverlappedComponent,
 	                AActor* OtherActor,
 	                UPrimitiveComponent* OtherComp,
 	                int32 OtherBodyIndex,
