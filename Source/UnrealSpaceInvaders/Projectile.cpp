@@ -1,9 +1,11 @@
 #include "Projectile.h"
 #include "Hostile.h"
+#include "TheWall.h"
 #include "Components/BrushComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+
 
 AProjectile::AProjectile()
 {
@@ -26,7 +28,7 @@ AProjectile::AProjectile()
 void AProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if(Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp))
+	if(Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherComp))
 	{
 		Destroy();
 	}

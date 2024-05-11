@@ -1,9 +1,11 @@
 #include "HostileProjectile.h"
 #include "PlayerShip.h"
+#include "TheWall.h"
 #include "Components/BrushComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+
 
 AHostileProjectile::AHostileProjectile()
 {
@@ -23,11 +25,14 @@ AHostileProjectile::AHostileProjectile()
 	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 }
 
-void AHostileProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+void AHostileProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent,
+										AActor* OtherActor,
+                                        UPrimitiveComponent* OtherComp,
+                                        int32 OtherBodyIndex,
+                                        bool bFromSweep,
                                         const FHitResult& SweepResult)
 {
-	if (Cast<APlayerShip>(OtherActor) || Cast<UBrushComponent>(OtherComp))
+	if (Cast<APlayerShip>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherComp))
 	{
 		Destroy();
 	}

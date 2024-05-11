@@ -19,7 +19,7 @@ AHostile::AHostile()
 	HostileCollision->SetBoxExtent(FVector(51.0, 51.0, 51.0));
 	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
 	NiagaraEffect = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
-	BlastSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
+	//	BlastSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
 }
 
 void AHostile::BeginPlay()
@@ -33,8 +33,11 @@ void AHostile::BeginPlay()
 	}
 }
 
-void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                              UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent,
+                              AActor* OtherActor,
+                              UPrimitiveComponent* OtherComp,
+                              int32 OtherBodyIndex,
+                              bool bFromSweep,
                               const FHitResult& SweepResult)
 {
 	if (Cast<AProjectile>(OtherActor))

@@ -18,5 +18,4 @@ protected:
 	int32 EnemyCount;
 	void SpawnHostiles() const;
 	void CheckHostiles();
-	
 };

@@ -49,7 +49,7 @@ void AHostileSwarm::CheckHostiles()
 	EnemyCount = EnemyArray.Num();
 
 	UE_LOG(LogTemp, Warning, TEXT("Actors %d"), EnemyCount);
-	if (EnemyCount<=0)
+	if (EnemyCount <= 0)
 	{
 		UGameplayStatics::OpenLevel(
 			this, FName(GetWorld()->GetName()), false);
