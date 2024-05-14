@@ -10,10 +10,11 @@ void ATheWall::BeginPlay()
 
 void ATheWall::ConstructWall()
 {
-	constexpr int32 Count = 20;
-	for (int32 j = 0; j < Count; j++)
+	int32 Count = 20;
+	double Spacing = 10.0;
+	for (int32 z = 0; z < Count; z++)
 	{
-		for (int32 i = 0; i < Count; i++)
+		for (int32 y = 0; y < Count; y++)
 		{
 			if (UStaticMeshComponent* WallComponent = NewObject<UStaticMeshComponent>(
 				this, UStaticMeshComponent::StaticClass()))
@@ -21,12 +22,11 @@ void ATheWall::ConstructWall()
 				if (UStaticMesh* WallMesh = LoadObject<UStaticMesh>(
 					nullptr, TEXT("StaticMesh'/Game/Hostiles/Mesh/SM_Cube.SM_Cube'")))
 				{
-					constexpr double Spacing = 10.0;
 					WallComponent->SetStaticMesh(WallMesh);
 					WallComponent->SetupAttachment(RootComponent);
 					WallComponent->SetRelativeTransform(
-						FTransform(FRotator::ZeroRotator, FVector(0.0, i * Spacing, j * Spacing),
-						           FVector(0.1, 0.1, 0.1)));
+						FTransform(FRotator::ZeroRotator, FVector(0.0, y * Spacing, z * Spacing),
+						           FVector(0.1, 0.1, 0.1)));						           
 					WallComponent->RegisterComponent();
 					WallComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::WallOverlap);
 				}

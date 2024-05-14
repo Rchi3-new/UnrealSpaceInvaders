@@ -1,17 +1,17 @@
 #include "HostileProjectile.h"
-#include "PlayerShip.h"
 #include "Components/BrushComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Environment/TheWall.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Gameplay/PlayerShip.h"
 
 
 AHostileProjectile::AHostileProjectile()
 {
-	ProjectileCollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
+	ProjectileCollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("ProjectileCollision"));
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
 
 	check(ProjectileCollisionCapsule);
 	check(ProjectileMesh);
@@ -26,11 +26,11 @@ AHostileProjectile::AHostileProjectile()
 }
 
 void AHostileProjectile::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
-										AActor* OtherActor,
-                                        UPrimitiveComponent* OtherComp,
-                                        int32 OtherBodyIndex,
-                                        bool bFromSweep,
-                                        const FHitResult& SweepResult)
+                                           AActor* OtherActor,
+                                           UPrimitiveComponent* OtherComp,
+                                           int32 OtherBodyIndex,
+                                           bool bFromSweep,
+                                           const FHitResult& SweepResult)
 {
 	if (Cast<APlayerShip>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherComp))
 	{

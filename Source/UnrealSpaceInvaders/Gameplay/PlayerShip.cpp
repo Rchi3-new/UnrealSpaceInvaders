@@ -4,9 +4,9 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
-#include "HostileProjectile.h"
 #include "Components/InputComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "UnrealSpaceInvaders/HostileProjectile.h"
 
 APlayerShip::APlayerShip()
 {
