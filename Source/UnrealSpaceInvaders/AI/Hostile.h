@@ -43,7 +43,7 @@ protected:
 	const int32 ProjectileMax = 8;
 
 	UFUNCTION()
-	void HostileOverlap(UPrimitiveComponent* OverlappedComponent,
+	void ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
 	                    AActor* OtherActor,
 	                    UPrimitiveComponent* OtherComp,
 	                    int32 OtherBodyIndex,

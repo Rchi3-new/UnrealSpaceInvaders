@@ -1,9 +1,9 @@
 #include "Projectile.h"
-#include "Hostile.h"
-#include "TheWall.h"
+#include "AI/Hostile.h"
 #include "Components/BrushComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Environment/TheWall.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 
@@ -22,15 +22,15 @@ AProjectile::AProjectile()
 	ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
 	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
 	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
-	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
+	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ProjectileOverlap);
 }
 
-void AProjectile::HostileOverlap(UPrimitiveComponent* OverlappedComponent,
-                                 AActor* OtherActor,
-                                 UPrimitiveComponent* OtherComp,
-                                 int32 OtherBodyIndex,
-                                 bool bFromSweep,
-                                 const FHitResult& SweepResult)
+void AProjectile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
+                                    AActor* OtherActor,
+                                    UPrimitiveComponent* OtherComp,
+                                    int32 OtherBodyIndex,
+                                    bool bFromSweep,
+                                    const FHitResult& SweepResult)
 {
 	if (Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherComp))
 	{

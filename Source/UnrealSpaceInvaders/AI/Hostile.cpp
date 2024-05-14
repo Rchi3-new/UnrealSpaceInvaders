@@ -1,10 +1,10 @@
 #include "Hostile.h"
-#include "HostileProjectile.h"
 #include "NiagaraFunctionLibrary.h"
-#include "Projectile.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/BrushComponent.h"
+#include "UnrealSpaceInvaders/HostileProjectile.h"
+#include "UnrealSpaceInvaders/Projectile.h"
 
 AHostile::AHostile()
 {
@@ -17,7 +17,7 @@ AHostile::AHostile()
 	SetRootComponent(HostileCollision);
 	HostileMesh->SetupAttachment(HostileCollision);
 	HostileCollision->SetBoxExtent(FVector(51.0, 51.0, 51.0));
-	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HostileOverlap);
+	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ProjectileOverlap);
 	NiagaraEffect = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
 	//	BlastSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
 }
@@ -33,12 +33,12 @@ void AHostile::BeginPlay()
 	}
 }
 
-void AHostile::HostileOverlap(UPrimitiveComponent* OverlappedComponent,
-                              AActor* OtherActor,
-                              UPrimitiveComponent* OtherComp,
-                              int32 OtherBodyIndex,
-                              bool bFromSweep,
-                              const FHitResult& SweepResult)
+void AHostile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
+                                 AActor* OtherActor,
+                                 UPrimitiveComponent* OtherComp,
+                                 int32 OtherBodyIndex,
+                                 bool bFromSweep,
+                                 const FHitResult& SweepResult)
 {
 	if (Cast<AProjectile>(OtherActor))
 	{

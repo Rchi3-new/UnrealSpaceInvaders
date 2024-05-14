@@ -1,9 +1,9 @@
 #include "HostileProjectile.h"
 #include "PlayerShip.h"
-#include "TheWall.h"
 #include "Components/BrushComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Environment/TheWall.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 
