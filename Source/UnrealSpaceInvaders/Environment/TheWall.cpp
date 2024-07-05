@@ -10,11 +10,15 @@ void ATheWall::BeginPlay()
 
 void ATheWall::ConstructWall()
 {
+
 	int32 Count = 20;
 	double Spacing = 10.0;
-	for (int32 z = 0; z < Count; z++)
+	int32 Row;
+	int32 Column;
+	
+	for (Row = 0; Row < Count; Row++)
 	{
-		for (int32 y = 0; y < Count; y++)
+		for (Column = 0; Column < Count; Column++)
 		{
 			if (UStaticMeshComponent* WallComponent = NewObject<UStaticMeshComponent>(
 				this, UStaticMeshComponent::StaticClass()))
@@ -25,7 +29,7 @@ void ATheWall::ConstructWall()
 					WallComponent->SetStaticMesh(WallMesh);
 					WallComponent->SetupAttachment(RootComponent);
 					WallComponent->SetRelativeTransform(
-						FTransform(FRotator::ZeroRotator, FVector(0.0, y * Spacing, z * Spacing),
+						FTransform(FRotator::ZeroRotator, FVector(0.0, Column * Spacing, Row * Spacing),
 						           FVector(0.1, 0.1, 0.1)));						           
 					WallComponent->RegisterComponent();
 					WallComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::WallOverlap);
