@@ -51,13 +51,13 @@ protected:
 	                    const FHitResult& SweepResult);
 
 	UFUNCTION()
-	void HostileDestroyFX() const;
+	void HostileDestroyFX();
 
 	UFUNCTION()
-	void DestroySound() const;
+	void DestroySound();
 
 	UFUNCTION()
-	void ChangeMovementDirection() const;
+	void ChangeMovementDirection();
 
 	UFUNCTION()
 	void Move();
