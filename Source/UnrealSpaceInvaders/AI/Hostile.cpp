@@ -52,7 +52,7 @@ void AHostile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
 	}
 }
 
-void AHostile::HostileDestroyFX() const
+void AHostile::HostileDestroyFX()
 
 {
 	if (NiagaraEffect)
@@ -61,7 +61,7 @@ void AHostile::HostileDestroyFX() const
 	}
 }
 
-void AHostile::DestroySound() const
+void AHostile::DestroySound()
 {
 	if (BlastSound)
 	{
@@ -69,7 +69,7 @@ void AHostile::DestroySound() const
 	}
 }
 
-void AHostile::ChangeMovementDirection() const
+void AHostile::ChangeMovementDirection()
 {
 	TArray<AActor*> OutActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), StaticClass(), OutActors);
