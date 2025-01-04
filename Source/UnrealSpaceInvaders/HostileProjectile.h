@@ -27,7 +27,7 @@ protected:
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
 	UFUNCTION()
-	void PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
+	void OnOverlap(UPrimitiveComponent* OverlappedComponent,
 						   AActor* OtherActor,
 						   UPrimitiveComponent* OtherComp,
 	                       int32 OtherBodyIndex,

@@ -6,34 +6,44 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Gameplay/PlayerShip.h"
 
-
 AHostileProjectile::AHostileProjectile()
 {
-	ProjectileCollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("ProjectileCollision"));
-	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
+    ProjectileCollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("ProjectileCollision"));
+    ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
+    ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
 
-	check(ProjectileCollisionCapsule);
-	check(ProjectileMesh);
-	check(ProjectileMovement);
+    ensure(ProjectileCollisionCapsule);
+    ensure(ProjectileMesh);
+    ensure(ProjectileMovement);
 
-	SetRootComponent(ProjectileCollisionCapsule);
-	ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
-	ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
-	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
-	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
-	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::PlayerShipOverlap);
+    SetRootComponent(ProjectileCollisionCapsule);
+    ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
+
+    ProjectileMesh->SetRelativeScale3D(FVector(0.4f, 0.4f, 0.6f));
+    ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0f);
+    ProjectileCollisionCapsule->SetCapsuleRadius(22.0f);
+    
+    ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &AHostileProjectile::OnOverlap);
+
+    ProjectileMovement->InitialSpeed = 1000.0f;
+    ProjectileMovement->MaxSpeed = 1000.0f;
+    ProjectileMovement->bRotationFollowsVelocity = true;
+    ProjectileMovement->ProjectileGravityScale = 0.0f;
 }
 
-void AHostileProjectile::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
-                                           AActor* OtherActor,
-                                           UPrimitiveComponent* OtherComp,
-                                           int32 OtherBodyIndex,
-                                           bool bFromSweep,
-                                           const FHitResult& SweepResult)
+void AHostileProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent,
+                                    AActor* OtherActor,
+                                    UPrimitiveComponent* OtherComp,
+                                    int32 OtherBodyIndex,
+                                    bool bFromSweep,
+                                    const FHitResult& SweepResult)
 {
-	if (Cast<APlayerShip>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherComp))
-	{
-		Destroy();
-	}
+    if (!OtherActor || OtherActor == this)
+    {
+        return;
+    }
+        if (OtherActor->IsA<APlayerShip>() || OtherComp->IsA<UBrushComponent>() || OtherComp->IsA<ATheWall>())
+    {
+        Destroy();
+    }
 }
