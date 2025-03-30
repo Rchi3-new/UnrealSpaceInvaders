@@ -33,7 +33,7 @@ public:
 	float ProjectileSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	bool bFireUpwards; // true = игрок стреляет вверх, false = враги стреляют вниз
+	bool bFireUpwards;
 
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnFire OnFire;
