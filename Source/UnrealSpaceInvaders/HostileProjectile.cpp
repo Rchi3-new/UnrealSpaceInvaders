@@ -42,7 +42,7 @@ void AHostileProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent,
     {
         return;
     }
-        if (OtherActor->IsA<APlayerShip>() || OtherComp->IsA<UBrushComponent>() || OtherComp->IsA<ATheWall>())
+        if (OtherActor->IsA<APlayerShip>() || OtherComp->IsA<UBrushComponent>() || OtherActor->IsA<ATheWall>())
     {
         Destroy();
     }
