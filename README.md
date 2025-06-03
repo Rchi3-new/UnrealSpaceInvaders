@@ -25,7 +25,7 @@ git clone https://github.com/Rchi3-new/UnrealSpaceInvaders.git
 - Click on the *"Play"* button to start the game.
 
 4. Controls:
-- Use the arrow keys or WD to move the spaceship.
+- Use the arrow keys or A/D to move the spaceship.
 - Press the spacebar to shoot at the invading aliens.
 
 ### Credits
