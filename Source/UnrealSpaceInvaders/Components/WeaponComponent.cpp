@@ -3,10 +3,10 @@
 
 UWeaponComponent::UWeaponComponent()
 {
-	FireRate = 1.0f; // Один выстрел в секунду
-	ProjectileSpeed = 500.0f; // Скорость снаряда
-	SpawnOffset = FVector(0.0f, 0.0f, 50.0f); // Смещение от центра актора
-	bFireUpwards = true; // По умолчанию стрельба вверх
+    FireRate = 1.0f; // One shot per second
+    ProjectileSpeed = 500.0f; // Projectile speed
+    SpawnOffset = FVector(0.0f, 0.0f, 50.0f); // Offset from the actor's center
+    bFireUpwards = true; // Firing upwards by default
 }
 
 void UWeaponComponent::BeginPlay()
