@@ -10,6 +10,7 @@ class USphereComponent;
 class UStaticMeshComponent;
 class UFloatingPawnMovement;
 class UInputMappingContext;
+class UWeaponComponent;
 struct FInputActionValue;
 
 UCLASS()
@@ -41,11 +42,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UInputAction> MoveAction;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<AActor> ActorToSpawn;
+        UPROPERTY(EditDefaultsOnly)
+        TSubclassOf<AActor> ActorToSpawn;
 
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UInputAction> AttackAction;
+        UPROPERTY(EditDefaultsOnly)
+        TObjectPtr<UInputAction> AttackAction;
+
+        UPROPERTY(EditDefaultsOnly)
+        TObjectPtr<UWeaponComponent> WeaponComponent;
 
 	UFUNCTION()
 	void PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
@@ -69,5 +73,4 @@ protected:
 
 	void Reload();
 
-	void SpawnActor();
 };

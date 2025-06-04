@@ -11,18 +11,22 @@ AProjectile::AProjectile()
 {
 	ProjectileCollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("ProjectileCollision"));
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
+        ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
 
 	check(ProjectileCollisionCapsule);
 	check(ProjectileMesh);
 	check(ProjectileMovement);
 
-	SetRootComponent(ProjectileCollisionCapsule);
-	ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
-	ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
-	ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
-	ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
-	ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ProjectileOverlap);
+        SetRootComponent(ProjectileCollisionCapsule);
+        ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
+        ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
+        ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
+        ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
+        ProjectileMovement->InitialSpeed = 1000.0f;
+        ProjectileMovement->MaxSpeed = 1000.0f;
+        ProjectileMovement->bRotationFollowsVelocity = true;
+        ProjectileMovement->ProjectileGravityScale = 0.0f;
+        ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ProjectileOverlap);
 }
 
 void AProjectile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,

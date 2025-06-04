@@ -24,7 +24,12 @@ void UWeaponComponent::StartFiring()
 
 void UWeaponComponent::StopFiring()
 {
-	GetWorld()->GetTimerManager().ClearTimer(FiringTimerHandle);
+        GetWorld()->GetTimerManager().ClearTimer(FiringTimerHandle);
+}
+
+void UWeaponComponent::FireOnce()
+{
+        Fire();
 }
 
 void UWeaponComponent::Fire()

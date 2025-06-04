@@ -12,13 +12,16 @@ class UNREALSPACEINVADERS_API UWeaponComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	UWeaponComponent();
+        UWeaponComponent();
 
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void StartFiring();
+        UFUNCTION(BlueprintCallable, Category = "Weapon")
+        void StartFiring();
 
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void StopFiring();
+        UFUNCTION(BlueprintCallable, Category = "Weapon")
+        void StopFiring();
+
+       UFUNCTION(BlueprintCallable, Category = "Weapon")
+       void FireOnce();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	TSubclassOf<AActor> ProjectileClass;

@@ -9,6 +9,7 @@
 class UBoxComponent;
 class UStaticMeshComponent;
 class UNiagaraSystem;
+class UWeaponComponent;
 
 UCLASS()
 
@@ -25,8 +26,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UBoxComponent> HostileCollision;
 
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UStaticMeshComponent> HostileMesh;
+        UPROPERTY(EditDefaultsOnly)
+        TObjectPtr<UStaticMeshComponent> HostileMesh;
+
+        UPROPERTY(EditDefaultsOnly)
+        TObjectPtr<UWeaponComponent> WeaponComponent;
 
 	UPROPERTY()
 	TObjectPtr<UNiagaraSystem> NiagaraEffect;

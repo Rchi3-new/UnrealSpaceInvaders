@@ -3,16 +3,24 @@
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/BrushComponent.h"
+#include "Components/WeaponComponent.h"
 #include "UnrealSpaceInvaders/HostileProjectile.h"
 #include "UnrealSpaceInvaders/Projectile.h"
 
 AHostile::AHostile()
 {
 	HostileCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
-	HostileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HostileMesh"));
+        HostileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HostileMesh"));
+        WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
+        if (WeaponComponent)
+        {
+                WeaponComponent->SpawnOffset = FVector(0.0f, 0.0f, -100.0f);
+                WeaponComponent->bFireUpwards = false;
+        }
 
-	check(HostileCollision);
-	check(HostileMesh);
+        check(HostileCollision);
+        check(HostileMesh);
+        check(WeaponComponent);
 
 	SetRootComponent(HostileCollision);
 	HostileMesh->SetupAttachment(HostileCollision);
@@ -24,8 +32,12 @@ AHostile::AHostile()
 
 void AHostile::BeginPlay()
 {
-	Super::BeginPlay();
-	BeginFire();
+        Super::BeginPlay();
+        if (WeaponComponent)
+        {
+                WeaponComponent->ProjectileClass = ActorProjectile;
+        }
+        BeginFire();
 
 	if (FTimerHandle MoveTimer; !MoveTimer.IsValid())
 	{
@@ -100,18 +112,13 @@ void AHostile::BeginFire()
 
 void AHostile::SpawnProjectile()
 {
-	ProjectileCheck();
-	if (ProjectileCounter < ProjectileMax)
-	{
-		const FVector SpawnLocation = GetActorLocation() + FVector(0.0, 0.0, -100.0);
-
-		if (UWorld* World = GetWorld())
-		{
-			World->SpawnActor<AActor>(ActorProjectile, SpawnLocation, FRotator(0, 0, 0));
-			GetWorldTimerManager().ClearTimer(ReloadTimerHandle);
-			BeginFire();
-		}
-	}
+        ProjectileCheck();
+        if (ProjectileCounter < ProjectileMax && WeaponComponent)
+        {
+                WeaponComponent->FireOnce();
+                GetWorldTimerManager().ClearTimer(ReloadTimerHandle);
+                BeginFire();
+        }
 }
 
 void AHostile::ProjectileCheck()
