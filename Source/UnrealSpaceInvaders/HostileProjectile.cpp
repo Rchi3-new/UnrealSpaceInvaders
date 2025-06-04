@@ -12,9 +12,9 @@ AHostileProjectile::AHostileProjectile()
     ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
     ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
 
-    ensure(ProjectileCollisionCapsule);
-    ensure(ProjectileMesh);
-    ensure(ProjectileMovement);
+    check(ProjectileCollisionCapsule);
+    check(ProjectileMesh);
+    check(ProjectileMovement);
 
     SetRootComponent(ProjectileCollisionCapsule);
     ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
@@ -23,26 +23,17 @@ AHostileProjectile::AHostileProjectile()
     ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0f);
     ProjectileCollisionCapsule->SetCapsuleRadius(22.0f);
     
-    ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &AHostileProjectile::OnOverlap);
-
-    ProjectileMovement->InitialSpeed = 1000.0f;
-    ProjectileMovement->MaxSpeed = 1000.0f;
-    ProjectileMovement->bRotationFollowsVelocity = true;
-    ProjectileMovement->ProjectileGravityScale = 0.0f;
+    ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::PlayerShipOverlap);
 }
 
-void AHostileProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent,
-                                    AActor* OtherActor,
-                                    UPrimitiveComponent* OtherComp,
-                                    int32 OtherBodyIndex,
-                                    bool bFromSweep,
-                                    const FHitResult& SweepResult)
+void AHostileProjectile::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
+                                           AActor* OtherActor,
+                                           UPrimitiveComponent* OtherComp,
+                                           int32 OtherBodyIndex,
+                                           bool bFromSweep,
+                                           const FHitResult& SweepResult)
 {
-    if (!OtherActor || OtherActor == this)
-    {
-        return;
-    }
-        if (OtherActor->IsA<APlayerShip>() || OtherComp->IsA<UBrushComponent>() || OtherActor->IsA<ATheWall>())
+    if (OtherActor && (OtherActor->IsA<APlayerShip>() || OtherComp->IsA<UBrushComponent>() || OtherActor->IsA<ATheWall>()))
     {
         Destroy();
     }

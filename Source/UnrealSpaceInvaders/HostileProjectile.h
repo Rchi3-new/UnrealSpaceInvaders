@@ -26,11 +26,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
-	UFUNCTION()
-	void OnOverlap(UPrimitiveComponent* OverlappedComponent,
-						   AActor* OtherActor,
-						   UPrimitiveComponent* OtherComp,
-	                       int32 OtherBodyIndex,
-	                       bool bFromSweep,
-	                       const FHitResult& SweepResult);
+        UFUNCTION()
+        void PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
+                                                       AActor* OtherActor,
+                                                       UPrimitiveComponent* OtherComp,
+                               int32 OtherBodyIndex,
+                               bool bFromSweep,
+                               const FHitResult& SweepResult);
 };

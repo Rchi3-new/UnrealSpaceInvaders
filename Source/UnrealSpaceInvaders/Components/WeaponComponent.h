@@ -29,8 +29,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	FVector SpawnOffset;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	float ProjectileSpeed;
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+        float ProjectileSpeed;
+
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+        float ProjectileMaxSpeed;
+
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+        bool bRotationFollowsVelocity;
+
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+        float ProjectileGravityScale;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	bool bFireUpwards;
