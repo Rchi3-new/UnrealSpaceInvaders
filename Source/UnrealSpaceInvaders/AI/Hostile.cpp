@@ -6,7 +6,6 @@
 #include "UnrealSpaceInvaders/Components/WeaponComponent.h"
 #include "UnrealSpaceInvaders/Components/ScoreComponent.h"
 #include "UnrealSpaceInvaders/Gameplay/PlayerShip.h"
-#include "UnrealSpaceInvaders/HostileProjectile.h"
 #include "UnrealSpaceInvaders/Projectile.h"
 #include "UnrealSpaceInvaders/UnrealSpaceInvadersGameModeBase.h"
 
@@ -127,16 +126,19 @@ void AHostile::SpawnProjectile()
 
 void AHostile::ProjectileCheck()
 {
-	TArray<AActor*> OutActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AHostileProjectile::StaticClass(), OutActors);
+        TArray<AActor*> OutActors;
+        UGameplayStatics::GetAllActorsOfClass(GetWorld(), AProjectile::StaticClass(), OutActors);
 
-	TArray<AHostileProjectile*> ProjectilesArray;
-	for (AActor* Actor : OutActors)
-	{
-		if (AHostileProjectile* Projectile = Cast<AHostileProjectile>(Actor))
-		{
-			ProjectilesArray.Add(Projectile);
-		}
-	}
-	ProjectileCounter = ProjectilesArray.Num();
+        TArray<AProjectile*> ProjectilesArray;
+        for (AActor* Actor : OutActors)
+        {
+                if (AProjectile* Projectile = Cast<AProjectile>(Actor))
+                {
+                        if (Projectile->Owner == EProjectileOwner::Hostile)
+                        {
+                                ProjectilesArray.Add(Projectile);
+                        }
+                }
+        }
+        ProjectileCounter = ProjectilesArray.Num();
 }

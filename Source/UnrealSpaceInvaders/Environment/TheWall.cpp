@@ -1,5 +1,4 @@
 #include "TheWall.h"
-#include "UnrealSpaceInvaders/HostileProjectile.h"
 #include "UnrealSpaceInvaders/Projectile.h"
 
 void ATheWall::BeginPlay()
@@ -46,11 +45,11 @@ void ATheWall::WallOverlap(UPrimitiveComponent* OverlappedComponent,
                            bool bFromSweep,
                            const FHitResult& SweepResult)
 {
-	if (Cast<AHostileProjectile>(OtherActor) || Cast<AProjectile>(OtherActor))
-	{
-		if (OverlappedComponent)
-		{
-			OverlappedComponent->DestroyComponent();
-		}
-	}
+        if (Cast<AProjectile>(OtherActor))
+        {
+                if (OverlappedComponent)
+                {
+                        OverlappedComponent->DestroyComponent();
+                }
+        }
 }

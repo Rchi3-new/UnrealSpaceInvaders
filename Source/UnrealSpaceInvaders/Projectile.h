@@ -8,6 +8,13 @@ class UCapsuleComponent;
 class UStaticMeshComponent;
 class UProjectileMovementComponent;
 
+UENUM()
+enum class EProjectileOwner
+{
+    Player,
+    Hostile
+};
+
 UCLASS()
 class UNREALSPACEINVADERS_API AProjectile : public AActor
 {
@@ -23,8 +30,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
 
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
+        UPROPERTY(EditDefaultsOnly)
+        TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
+
+        UPROPERTY(EditAnywhere)
+        EProjectileOwner Owner = EProjectileOwner::Player;
 
 	UFUNCTION()
 	void ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,

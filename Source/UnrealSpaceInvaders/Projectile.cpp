@@ -3,6 +3,7 @@
 #include "Components/BrushComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Gameplay/PlayerShip.h"
 #include "Environment/TheWall.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -36,8 +37,18 @@ void AProjectile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
                                     bool bFromSweep,
                                     const FHitResult& SweepResult)
 {
-	if (Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherActor))
-	{
-		Destroy();
-	}
+        if (Owner == EProjectileOwner::Player)
+        {
+                if (Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherActor))
+                {
+                        Destroy();
+                }
+        }
+        else if (Owner == EProjectileOwner::Hostile)
+        {
+                if (Cast<APlayerShip>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherActor))
+                {
+                        Destroy();
+                }
+        }
 }

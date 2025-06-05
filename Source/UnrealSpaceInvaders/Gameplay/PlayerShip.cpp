@@ -6,7 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "Components/InputComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "UnrealSpaceInvaders/HostileProjectile.h"
+#include "UnrealSpaceInvaders/Projectile.h"
 #include "UnrealSpaceInvaders/Components/WeaponComponent.h"
 #include "UnrealSpaceInvaders/Components/ScoreComponent.h"
 
@@ -59,11 +59,14 @@ void APlayerShip::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
                                     bool bFromSweep,
                                     const FHitResult& SweepResult)
 {
-	if (Cast<AHostileProjectile>(OtherActor))
-	{
-		ShipMesh->SetVisibility(false);
-		PlayerDeath();
-	}
+        if (AProjectile* Projectile = Cast<AProjectile>(OtherActor))
+        {
+                if (Projectile->Owner == EProjectileOwner::Hostile)
+                {
+                        ShipMesh->SetVisibility(false);
+                        PlayerDeath();
+                }
+        }
 }
 
 void APlayerShip::Move(const FInputActionValue& Value)

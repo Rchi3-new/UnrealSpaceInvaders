@@ -12,6 +12,7 @@ class UFloatingPawnMovement;
 class UInputMappingContext;
 class UWeaponComponent;
 class UScoreComponent;
+class AProjectile;
 struct FInputActionValue;
 
 UCLASS()
@@ -44,7 +45,7 @@ protected:
 	TObjectPtr<UInputAction> MoveAction;
 
         UPROPERTY(EditDefaultsOnly)
-        TSubclassOf<AActor> ActorToSpawn;
+        TSubclassOf<AProjectile> ActorToSpawn;
 
         UPROPERTY(EditDefaultsOnly)
         TObjectPtr<UInputAction> AttackAction;

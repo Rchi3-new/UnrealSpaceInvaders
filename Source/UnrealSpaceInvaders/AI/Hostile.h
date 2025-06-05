@@ -10,6 +10,7 @@ class UBoxComponent;
 class UStaticMeshComponent;
 class UNiagaraSystem;
 class UWeaponComponent;
+class AProjectile;
 
 UCLASS()
 
@@ -43,8 +44,8 @@ protected:
 	UPROPERTY()
 	TObjectPtr<USoundBase> BlastSound;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<AActor> ActorProjectile;
+        UPROPERTY(EditDefaultsOnly)
+        TSubclassOf<AProjectile> ActorProjectile;
 
 	FTimerHandle ReloadTimerHandle;
 	double MoveDirection = -1.0;

@@ -1,6 +1,8 @@
 #include "WeaponComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "UnrealSpaceInvaders/Projectile.h"
+#include "UnrealSpaceInvaders/Gameplay/PlayerShip.h"
 
 UWeaponComponent::UWeaponComponent()
 {
@@ -62,6 +64,11 @@ void UWeaponComponent::Fire()
                         else if (UPrimitiveComponent* RootComponent = Cast<UPrimitiveComponent>(SpawnedProjectile->GetRootComponent()))
                         {
                                 RootComponent->SetPhysicsLinearVelocity(Direction * ProjectileSpeed);
+                        }
+
+                        if (AProjectile* P = Cast<AProjectile>(SpawnedProjectile))
+                        {
+                                P->Owner = Cast<APlayerShip>(Owner) ? EProjectileOwner::Player : EProjectileOwner::Hostile;
                         }
                 }
 
