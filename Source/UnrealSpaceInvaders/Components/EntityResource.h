@@ -18,8 +18,6 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-
-private:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Resource", meta=(AllowPrivateAccess="true"))
     float InitialValue = 100.0f;
 

@@ -11,6 +11,7 @@ class UStaticMeshComponent;
 class UFloatingPawnMovement;
 class UInputMappingContext;
 class UWeaponComponent;
+class UScoreComponent;
 struct FInputActionValue;
 
 UCLASS()
@@ -50,6 +51,9 @@ protected:
 
         UPROPERTY(EditDefaultsOnly)
         TObjectPtr<UWeaponComponent> WeaponComponent;
+
+        UPROPERTY(EditDefaultsOnly)
+        TObjectPtr<UScoreComponent> ScoreComponent;
 
 	UFUNCTION()
 	void PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,

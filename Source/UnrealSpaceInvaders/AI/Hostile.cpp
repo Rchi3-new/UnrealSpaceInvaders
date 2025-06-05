@@ -4,6 +4,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/BrushComponent.h"
 #include "UnrealSpaceInvaders/Components/WeaponComponent.h"
+#include "UnrealSpaceInvaders/Components/ScoreComponent.h"
+#include "UnrealSpaceInvaders/Gameplay/PlayerShip.h"
 #include "UnrealSpaceInvaders/HostileProjectile.h"
 #include "UnrealSpaceInvaders/Projectile.h"
 
@@ -52,12 +54,19 @@ void AHostile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
                                  bool bFromSweep,
                                  const FHitResult& SweepResult)
 {
-	if (Cast<AProjectile>(OtherActor))
-	{
-		HostileDestroyFX();
-		DestroySound();
-		Destroy();
-	}
+        if (Cast<AProjectile>(OtherActor))
+        {
+                if (APlayerShip* Player = Cast<APlayerShip>(UGameplayStatics::GetPlayerPawn(this, 0)))
+                {
+                        if (UScoreComponent* ScoreComp = Player->FindComponentByClass<UScoreComponent>())
+                        {
+                                ScoreComp->AddScore(10.0f);
+                        }
+                }
+                HostileDestroyFX();
+                DestroySound();
+                Destroy();
+        }
 	else if (Cast<UBrushComponent>(OtherComp))
 	{
 		ChangeMovementDirection();
