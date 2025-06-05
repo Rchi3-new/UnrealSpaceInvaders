@@ -3,7 +3,7 @@
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/BrushComponent.h"
-#include "Components/WeaponComponent.h"
+#include "UnrealSpaceInvaders/Components/WeaponComponent.h"
 #include "UnrealSpaceInvaders/HostileProjectile.h"
 #include "UnrealSpaceInvaders/Projectile.h"
 

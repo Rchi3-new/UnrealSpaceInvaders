@@ -7,18 +7,18 @@
 #include "Components/InputComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "UnrealSpaceInvaders/HostileProjectile.h"
-#include "Components/WeaponComponent.h"
+#include "UnrealSpaceInvaders/Components/WeaponComponent.h"
 
 APlayerShip::APlayerShip()
 {
 	ShipCollision = CreateDefaultSubobject<USphereComponent>(TEXT("ShipCollision"));
 	ShipMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
-        ShipMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("ShipMovement"));
-        WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
+	ShipMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("ShipMovement"));
+	WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
         if (WeaponComponent)
         {
                 WeaponComponent->SpawnOffset = FVector(0.0f, 0.0f, 100.0f);
-                WeaponComponent->bFireUpwards = true;
+                WeaponComponent->bFireUpwards = true;        		
         }
 
 	check(ShipCollision);
