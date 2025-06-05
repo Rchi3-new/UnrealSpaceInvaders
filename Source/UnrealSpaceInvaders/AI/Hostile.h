@@ -27,7 +27,8 @@ public:
        FORCEINLINE class UWeaponComponent* GetWeaponComponent() const { return WeaponComponent; }
 
 protected:
-	virtual void BeginPlay() override;
+        virtual void BeginPlay() override;
+        virtual void Destroyed() override;
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UBoxComponent> HostileCollision;

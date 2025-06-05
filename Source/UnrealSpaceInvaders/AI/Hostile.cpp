@@ -142,3 +142,19 @@ void AHostile::ProjectileCheck()
         }
         ProjectileCounter = ProjectilesArray.Num();
 }
+
+void AHostile::Destroyed()
+{
+       Super::Destroyed();
+
+       HostileDestroyFX();
+       DestroySound();
+
+       if (UWorld* World = GetWorld())
+       {
+               if (AUnrealSpaceInvadersGameModeBase* GM = World->GetAuthGameMode<AUnrealSpaceInvadersGameModeBase>())
+               {
+                       GM->NotifyHostileDestroyed(this);
+               }
+       }
+}
