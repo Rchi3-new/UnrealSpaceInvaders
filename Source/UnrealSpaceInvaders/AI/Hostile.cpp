@@ -6,6 +6,7 @@
 #include "UnrealSpaceInvaders/Components/WeaponComponent.h"
 #include "UnrealSpaceInvaders/HostileProjectile.h"
 #include "UnrealSpaceInvaders/Projectile.h"
+#include "UnrealSpaceInvaders/UnrealSpaceInvadersGameModeBase.h"
 
 AHostile::AHostile()
 {
@@ -52,12 +53,16 @@ void AHostile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
                                  bool bFromSweep,
                                  const FHitResult& SweepResult)
 {
-	if (Cast<AProjectile>(OtherActor))
-	{
-		HostileDestroyFX();
-		DestroySound();
-		Destroy();
-	}
+        if (Cast<AProjectile>(OtherActor))
+        {
+                HostileDestroyFX();
+                DestroySound();
+               if (AUnrealSpaceInvadersGameModeBase* GM = GetWorld() ? GetWorld()->GetAuthGameMode<AUnrealSpaceInvadersGameModeBase>() : nullptr)
+               {
+                       GM->NotifyHostileDestroyed(this);
+               }
+                Destroy();
+        }
 	else if (Cast<UBrushComponent>(OtherComp))
 	{
 		ChangeMovementDirection();
@@ -97,8 +102,10 @@ void AHostile::ChangeMovementDirection()
 
 void AHostile::Move()
 {
-	const FVector NewLocation = GetActorLocation() + FVector(0.0, MoveDirection, 0.0);
-	SetActorLocation(NewLocation);
+       AUnrealSpaceInvadersGameModeBase* GM = GetWorld() ? GetWorld()->GetAuthGameMode<AUnrealSpaceInvadersGameModeBase>() : nullptr;
+       const float Multiplier = GM ? GM->DifficultyMultiplier : 1.0f;
+       const FVector NewLocation = GetActorLocation() + FVector(0.0, MoveDirection * MoveSpeed * Multiplier, 0.0);
+       SetActorLocation(NewLocation);
 }
 
 void AHostile::BeginFire()

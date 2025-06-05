@@ -15,10 +15,15 @@ UCLASS()
 
 class UNREALSPACEINVADERS_API AHostile : public AActor
 {
-	GENERATED_BODY()
+        GENERATED_BODY()
 
 public:
-	AHostile();
+        AHostile();
+
+       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+       float MoveSpeed = 1.0f;
+
+       FORCEINLINE class UWeaponComponent* GetWeaponComponent() const { return WeaponComponent; }
 
 protected:
 	virtual void BeginPlay() override;
