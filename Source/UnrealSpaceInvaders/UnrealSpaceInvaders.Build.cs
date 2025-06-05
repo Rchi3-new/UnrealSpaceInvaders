@@ -6,7 +6,7 @@ public class UnrealSpaceInvaders : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Niagara", "UMG" });
-		PrivateDependencyModuleNames.AddRange(new string[] { });
+                PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Niagara", "UMG", "GameplayTasks" });
+                PrivateDependencyModuleNames.AddRange(new string[] { });
 	}
 }
