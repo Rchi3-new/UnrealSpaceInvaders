@@ -56,11 +56,15 @@ void APlayerShip::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
                                     bool bFromSweep,
                                     const FHitResult& SweepResult)
 {
-	if (Cast<AHostileProjectile>(OtherActor))
-	{
-		ShipMesh->SetVisibility(false);
-		PlayerDeath();
-	}
+       if (Cast<AHostileProjectile>(OtherActor))
+       {
+               Lives--;
+               if (Lives <= 0)
+               {
+                       ShipMesh->SetVisibility(false);
+                       PlayerDeath();
+               }
+       }
 }
 
 void APlayerShip::Move(const FInputActionValue& Value)
@@ -85,7 +89,10 @@ void APlayerShip::Attack(const FInputActionValue& Value)
 
 void APlayerShip::PlayerDeath()
 {
-	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+       if (APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0))
+       {
+               PC->SetPause(true);
+       }
 }
 
 void APlayerShip::Reload()

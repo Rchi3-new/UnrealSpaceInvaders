@@ -61,7 +61,11 @@ protected:
 
 	FTimerHandle ReloadTimerHandle;
 
-	bool CanAttack = true;
+        bool CanAttack = true;
+
+       /** Number of lives the player has. Decreases when hit by an enemy projectile. */
+       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+       int32 Lives = 1;
 
 	float ReloadTime = 0.5;
 
