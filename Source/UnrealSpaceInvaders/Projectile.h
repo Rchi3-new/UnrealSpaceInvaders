@@ -34,7 +34,7 @@ protected:
         TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
         UPROPERTY(EditAnywhere)
-        EProjectileOwner Owner = EProjectileOwner::Player;
+        EProjectileOwner ProjectileOwner = EProjectileOwner::Player;
 
 	UFUNCTION()
 	void ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,

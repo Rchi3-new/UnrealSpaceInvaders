@@ -37,14 +37,14 @@ void AProjectile::ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,
                                     bool bFromSweep,
                                     const FHitResult& SweepResult)
 {
-        if (Owner == EProjectileOwner::Player)
+        if (ProjectileOwner == EProjectileOwner::Player)
         {
                 if (Cast<AHostile>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherActor))
                 {
                         Destroy();
                 }
         }
-        else if (Owner == EProjectileOwner::Hostile)
+        else if (ProjectileOwner == EProjectileOwner::Hostile)
         {
                 if (Cast<APlayerShip>(OtherActor) || Cast<UBrushComponent>(OtherComp) || Cast<ATheWall>(OtherActor))
                 {

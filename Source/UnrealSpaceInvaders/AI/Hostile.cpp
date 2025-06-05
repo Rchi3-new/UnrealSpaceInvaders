@@ -134,7 +134,7 @@ void AHostile::ProjectileCheck()
         {
                 if (AProjectile* Projectile = Cast<AProjectile>(Actor))
                 {
-                        if (Projectile->Owner == EProjectileOwner::Hostile)
+                        if (Projectile->ProjectileOwner == EProjectileOwner::Hostile)
                         {
                                 ProjectilesArray.Add(Projectile);
                         }

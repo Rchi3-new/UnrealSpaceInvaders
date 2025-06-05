@@ -68,7 +68,7 @@ void UWeaponComponent::Fire()
 
                         if (AProjectile* P = Cast<AProjectile>(SpawnedProjectile))
                         {
-                                P->Owner = Cast<APlayerShip>(Owner) ? EProjectileOwner::Player : EProjectileOwner::Hostile;
+                                P->ProjectileOwner = Cast<APlayerShip>(Owner) ? EProjectileOwner::Player : EProjectileOwner::Hostile;
                         }
                 }
 
