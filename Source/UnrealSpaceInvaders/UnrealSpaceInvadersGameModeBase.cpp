@@ -1,17 +1,20 @@
 #include "UnrealSpaceInvadersGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "AI/Hostile.h"
+#include "UnrealSpaceInvaders/Components/WeaponComponent.h"
+#include "UnrealSpaceInvaders/Components/ScoreComponent.h"
 
 AUnrealSpaceInvadersGameModeBase::AUnrealSpaceInvadersGameModeBase()
 {
        DifficultyMultiplier = 1.0f;
 }
 
+
 void AUnrealSpaceInvadersGameModeBase::IncreaseDifficulty()
 {
-       DifficultyMultiplier += 0.1f;
+	DifficultyMultiplier += 0.1f;
 
-       TArray<AActor*> HostileActors;
+        TArray<AActor*> HostileActors;
        UGameplayStatics::GetAllActorsOfClass(GetWorld(), AHostile::StaticClass(), HostileActors);
 
        for (AActor* Actor : HostileActors)
@@ -27,8 +30,9 @@ void AUnrealSpaceInvadersGameModeBase::IncreaseDifficulty()
        }
 }
 
-void AUnrealSpaceInvadersGameModeBase::NotifyHostileDestroyed(AHostile* DestroyedHostile)
+void AUnrealSpaceInvadersGameModeBase::NotifyHostileDestroyed(AHostile* DestroyedHostile) // Custom logic could be added here such as scoring or triggering new waves
 {
-       // Custom logic could be added here such as scoring or triggering new waves
+		IncreaseDifficulty();
+		       
 }
 

@@ -18,10 +18,7 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/codex/create-scorecomponent-and-integrate-with-actor
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Resource", meta=(AllowPrivateAccess="true"))
     float InitialValue = 100.0f;
 

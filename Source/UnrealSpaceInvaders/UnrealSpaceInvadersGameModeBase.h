@@ -17,7 +17,6 @@ public:
 
        void NotifyHostileDestroyed(class AHostile* DestroyedHostile);
 
-protected:
        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Difficulty")
        float DifficultyMultiplier;
 };

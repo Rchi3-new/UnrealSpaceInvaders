@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/EntityResource.h"
+#include "UnrealSpaceInvaders/Components/EntityResource.h"
 #include "ScoreComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
