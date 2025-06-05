@@ -18,10 +18,14 @@ enum class EProjectileOwner
 UCLASS()
 class UNREALSPACEINVADERS_API AProjectile : public AActor
 {
-	GENERATED_BODY()
+        GENERATED_BODY()
 
 public:
-	AProjectile();
+        AProjectile();
+
+       FORCEINLINE EProjectileOwner GetProjectileOwner() const { return ProjectileOwner; }
+
+       FORCEINLINE void SetProjectileOwner(EProjectileOwner NewOwner) { ProjectileOwner = NewOwner; }
 
 protected:
 	UPROPERTY(EditDefaultsOnly)

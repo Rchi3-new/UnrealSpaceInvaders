@@ -66,10 +66,10 @@ void UWeaponComponent::Fire()
                                 RootComponent->SetPhysicsLinearVelocity(Direction * ProjectileSpeed);
                         }
 
-                        if (AProjectile* P = Cast<AProjectile>(SpawnedProjectile))
-                        {
-                                P->ProjectileOwner = Cast<APlayerShip>(Owner) ? EProjectileOwner::Player : EProjectileOwner::Hostile;
-                        }
+                       if (AProjectile* P = Cast<AProjectile>(SpawnedProjectile))
+                       {
+                               P->SetProjectileOwner(Cast<APlayerShip>(Owner) ? EProjectileOwner::Player : EProjectileOwner::Hostile);
+                       }
                 }
 
                 OnFire.Broadcast();

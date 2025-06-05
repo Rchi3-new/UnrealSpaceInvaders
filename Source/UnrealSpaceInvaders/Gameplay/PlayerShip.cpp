@@ -61,8 +61,8 @@ void APlayerShip::PlayerShipOverlap(UPrimitiveComponent* OverlappedComponent,
 {
         if (AProjectile* Projectile = Cast<AProjectile>(OtherActor))
         {
-                if (Projectile->ProjectileOwner == EProjectileOwner::Hostile)
-                {
+               if (Projectile->GetProjectileOwner() == EProjectileOwner::Hostile)
+               {
                         ShipMesh->SetVisibility(false);
                         PlayerDeath();
                 }
