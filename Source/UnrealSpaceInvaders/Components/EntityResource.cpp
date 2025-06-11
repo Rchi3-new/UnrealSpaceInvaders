@@ -1,4 +1,4 @@
-﻿#include "EntityResource.h"
+#include "EntityResource.h"
 
 UEntityResourceComponent::UEntityResourceComponent()
 	: CurrentValue(InitialValue)
