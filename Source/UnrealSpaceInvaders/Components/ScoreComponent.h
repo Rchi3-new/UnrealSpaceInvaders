@@ -7,14 +7,14 @@
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class UNREALSPACEINVADERS_API UScoreComponent : public UEntityResourceComponent
 {
-        GENERATED_BODY()
+		GENERATED_BODY()
 
 public:
-        UScoreComponent();
+		UScoreComponent();
 
-        UFUNCTION(BlueprintCallable, Category="Score")
-        void AddScore(float Amount);
+		UFUNCTION(BlueprintCallable, Category="Score")
+		void AddScore(float Amount);
 
-        UFUNCTION(BlueprintCallable, Category="Score")
-        void ResetScore();
+		UFUNCTION(BlueprintCallable, Category="Score")
+		void ResetScore();
 };
