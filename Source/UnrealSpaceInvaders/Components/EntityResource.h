@@ -51,5 +51,5 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Resource")
 	void DecreaseMaxValue(float Amount);
-
-
+	void ResetValue();
+};
