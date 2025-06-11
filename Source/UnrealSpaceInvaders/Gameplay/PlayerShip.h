@@ -66,7 +66,7 @@ protected:
 
 	FTimerHandle ReloadTimerHandle;
 
-	bool CanAttack = true;
+        bool bCanAttack = true;
 
 	float ReloadTime = 0.5;
 

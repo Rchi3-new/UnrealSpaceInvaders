@@ -78,9 +78,9 @@ void APlayerShip::Move(const FInputActionValue& Value)
 
 void APlayerShip::Attack(const FInputActionValue& Value)
 {
-        if (CanAttack)
+        if (bCanAttack)
         {
-                CanAttack = false;
+                bCanAttack = false;
                 if (WeaponComponent)
                 {
                         WeaponComponent->FireOnce();
@@ -97,7 +97,7 @@ void APlayerShip::PlayerDeath()
 void APlayerShip::Reload()
 {
 	GetWorldTimerManager().ClearTimer(ReloadTimerHandle);
-	CanAttack = true;
+        bCanAttack = true;
 }
 
 
