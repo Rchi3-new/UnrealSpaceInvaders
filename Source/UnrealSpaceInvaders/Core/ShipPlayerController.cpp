@@ -1,7 +1,7 @@
 #include "ShipPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerCameraActor.h"
-#include "ScoreWidget.h"
+#include "UnrealSpaceInvaders/ScoreWidget.h"
 #include "UnrealSpaceInvaders/Gameplay/PlayerShip.h"
 #include "UnrealSpaceInvaders/Components/ScoreComponent.h"
 
