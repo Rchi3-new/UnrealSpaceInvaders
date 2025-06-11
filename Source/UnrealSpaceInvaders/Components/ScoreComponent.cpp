@@ -3,17 +3,17 @@
 
 UScoreComponent::UScoreComponent()
 {
-        InitialValue = 0.0f;
-        MaxValue = std::numeric_limits<float>::max();
-        CurrentValue = InitialValue;
+		InitialValue = 0.0f;
+		MaxValue = std::numeric_limits<float>::max();
+		CurrentValue = InitialValue;
 }
 
 void UScoreComponent::AddScore(float Amount)
 {
-        IncreaseValue(Amount);
+		IncreaseValue(Amount);
 }
 
 void UScoreComponent::ResetScore()
 {
-        ResetValue();
+		ResetValue();
 }

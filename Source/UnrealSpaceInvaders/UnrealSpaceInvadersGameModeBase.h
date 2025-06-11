@@ -7,16 +7,16 @@
 UCLASS()
 class UNREALSPACEINVADERS_API AUnrealSpaceInvadersGameModeBase : public AGameModeBase
 {
-       GENERATED_BODY()
+	   GENERATED_BODY()
 
 public:
-       AUnrealSpaceInvadersGameModeBase();
+	   AUnrealSpaceInvadersGameModeBase();
 
-       UFUNCTION(BlueprintCallable, Category="Difficulty")
-       void IncreaseDifficulty();
+	   UFUNCTION(BlueprintCallable, Category="Difficulty")
+	   void IncreaseDifficulty();
 
-       void NotifyHostileDestroyed(class AHostile* DestroyedHostile);
+	   void NotifyHostileDestroyed(class AHostile* DestroyedHostile);
 
-       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Difficulty")
-       float DifficultyMultiplier;
+	   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Difficulty")
+	   float DifficultyMultiplier;
 };
