@@ -21,7 +21,7 @@ class UNREALSPACEINVADERS_API APlayerShip : public APawn
 	GENERATED_BODY()
 
 public:
-	
+
 	APlayerShip();
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
