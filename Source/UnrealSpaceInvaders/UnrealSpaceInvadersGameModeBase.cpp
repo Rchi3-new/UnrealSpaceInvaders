@@ -33,6 +33,6 @@ void AUnrealSpaceInvadersGameModeBase::IncreaseDifficulty()
 void AUnrealSpaceInvadersGameModeBase::NotifyHostileDestroyed(AHostile* DestroyedHostile) // Custom logic could be added here such as scoring or triggering new waves
 {
 		IncreaseDifficulty();
-		       
+
 }
 

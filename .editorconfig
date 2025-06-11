@@ -1,3 +1,6 @@
+[*]
+trim_trailing_whitespace = true
+
 [*.{cpp,h}]
 
 # Naming convention rules (note: currently need to be ordered from more to less specific)

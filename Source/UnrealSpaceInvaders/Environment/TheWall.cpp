@@ -14,7 +14,7 @@ void ATheWall::ConstructWall()
 	double Spacing = 10.0;
 	int32 Row;
 	int32 Column;
-	
+
 	for (Row = 0; Row < Count; Row++)
 	{
 		for (Column = 0; Column < Count; Column++)
@@ -29,7 +29,7 @@ void ATheWall::ConstructWall()
 					WallComponent->SetupAttachment(RootComponent);
 					WallComponent->SetRelativeTransform(
 						FTransform(FRotator::ZeroRotator, FVector(0.0, Column * Spacing, Row * Spacing),
-						           FVector(0.1, 0.1, 0.1)));						           
+						           FVector(0.1, 0.1, 0.1)));
 					WallComponent->RegisterComponent();
 					WallComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::WallOverlap);
 				}
