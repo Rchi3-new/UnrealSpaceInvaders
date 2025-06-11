@@ -3,6 +3,7 @@
 #include "AI/Hostile.h"
 #include "UnrealSpaceInvaders/Components/WeaponComponent.h"
 #include "UnrealSpaceInvaders/Components/ScoreComponent.h"
+#include "UnrealSpaceInvaders/Gameplay/PlayerShip.h"
 
 AUnrealSpaceInvadersGameModeBase::AUnrealSpaceInvadersGameModeBase()
 {
@@ -32,7 +33,15 @@ void AUnrealSpaceInvadersGameModeBase::IncreaseDifficulty()
 
 void AUnrealSpaceInvadersGameModeBase::NotifyHostileDestroyed(AHostile* DestroyedHostile) // Custom logic could be added here such as scoring or triggering new waves
 {
-		IncreaseDifficulty();
+               IncreaseDifficulty();
+
+               if (APlayerShip* Ship = Cast<APlayerShip>(UGameplayStatics::GetPlayerPawn(this, 0)))
+               {
+                       if (UScoreComponent* ScoreComp = Ship->FindComponentByClass<UScoreComponent>())
+                       {
+                               ScoreComp->AddScore(10.0f);
+                       }
+               }
 
 }
 

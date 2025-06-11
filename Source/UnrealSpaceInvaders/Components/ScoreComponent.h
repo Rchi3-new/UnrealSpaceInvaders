@@ -15,6 +15,9 @@ public:
 		UFUNCTION(BlueprintCallable, Category="Score")
 		void AddScore(float Amount);
 
-		UFUNCTION(BlueprintCallable, Category="Score")
-		void ResetScore();
+                UFUNCTION(BlueprintCallable, Category="Score")
+                void ResetScore();
+
+                UFUNCTION(BlueprintCallable, Category="Score")
+                float GetScore() const;
 };

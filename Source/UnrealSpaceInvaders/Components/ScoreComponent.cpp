@@ -15,5 +15,10 @@ void UScoreComponent::AddScore(float Amount)
 
 void UScoreComponent::ResetScore()
 {
-		ResetValue();
+                ResetValue();
+}
+
+float UScoreComponent::GetScore() const
+{
+                return CurrentValue;
 }
