@@ -14,19 +14,20 @@ APlayerShip::APlayerShip()
 {
 	ShipCollision = CreateDefaultSubobject<USphereComponent>(TEXT("ShipCollision"));
 	ShipMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
-        ShipMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("ShipMovement"));
-        WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
-        ScoreComponent = CreateDefaultSubobject<UScoreComponent>(TEXT("ScoreComponent"));
-        if (WeaponComponent)
+	ShipMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("ShipMovement"));
+    WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
+    ScoreComponent = CreateDefaultSubobject<UScoreComponent>(TEXT("ScoreComponent"));
+
+	if (WeaponComponent)
         {
                 WeaponComponent->SpawnOffset = FVector(0.0f, 0.0f, 100.0f);
                 WeaponComponent->bFireUpwards = true;
         }
 
-        check(ShipCollision);
-        check(ShipMesh);
-        check(ShipMovement);
-        check(ScoreComponent);
+    check(ShipCollision);
+    check(ShipMesh);
+    check(ShipMovement);
+    check(ScoreComponent);
 
 	SetRootComponent(ShipCollision);
 	ShipCollision->SetSphereRadius(50.0);
