@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
@@ -52,6 +52,4 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Resource")
 	void DecreaseMaxValue(float Amount);
 
-	UFUNCTION(BlueprintCallable, Category="Resource")
-	void ResetValue();
-};
+
