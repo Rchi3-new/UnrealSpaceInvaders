@@ -8,10 +8,13 @@
 UCLASS()
 class UNREALSPACEINVADERS_API AShipPlayerController : public APlayerController
 {
-        GENERATED_BODY()
+	GENERATED_BODY()
+
+public:
+	AShipPlayerController();
 
 protected:
-        virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 
         UPROPERTY(EditDefaultsOnly, Category="UI")
         TSubclassOf<class UScoreWidget> ScoreWidgetClass;

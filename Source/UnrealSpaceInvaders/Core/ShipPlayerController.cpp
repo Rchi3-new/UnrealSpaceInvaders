@@ -5,6 +5,11 @@
 #include "UnrealSpaceInvaders/Gameplay/PlayerShip.h"
 #include "UnrealSpaceInvaders/Components/ScoreComponent.h"
 
+AShipPlayerController::AShipPlayerController()
+{
+	ScoreWidgetClass = UScoreWidget::StaticClass();
+}
+
 void AShipPlayerController::BeginPlay()
 {
        Super::BeginPlay();
