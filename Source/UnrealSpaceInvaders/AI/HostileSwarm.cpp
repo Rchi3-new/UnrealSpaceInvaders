@@ -3,6 +3,15 @@
 #include "Hostile.h"
 #include "Kismet/GameplayStatics.h"
 
+namespace
+{
+	constexpr float HostileCheckIntervalSeconds = 2.0f;
+	constexpr int32 HostileCountZ = 5;
+	constexpr int32 HostileCountY = 11;
+	constexpr double HostileSpacing = 120.0;
+	constexpr int32 HostileStartZ = 1;
+}
+
 void AHostileSwarm::BeginPlay()
 {
 	Super::BeginPlay();
@@ -10,17 +19,17 @@ void AHostileSwarm::BeginPlay()
 	FTimerHandle CheckHostilesTimer;
 	if (!CheckHostilesTimer.IsValid())
 	{
-		GetWorldTimerManager().SetTimer(CheckHostilesTimer, this, &AHostileSwarm::CheckHostiles, 2.0, true);
+		GetWorldTimerManager().SetTimer(CheckHostilesTimer, this, &AHostileSwarm::CheckHostiles, HostileCheckIntervalSeconds, true);
 	}
 }
 
 void AHostileSwarm::SpawnHostiles() const
 {
 	const FVector SpawnLocation = GetActorLocation();
-	int32 CountZ = 5;
-	int32 CountY = 11;
-	double Spacing = 120.0;
-	for (int32 z = 1; z < CountZ; z++)
+	int32 CountZ = HostileCountZ;
+	int32 CountY = HostileCountY;
+	double Spacing = HostileSpacing;
+	for (int32 z = HostileStartZ; z < CountZ; z++)
 	{
 		for (int32 y = 0; y < CountY; y++)
 		{

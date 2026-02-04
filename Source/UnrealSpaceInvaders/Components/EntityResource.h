@@ -19,11 +19,14 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	static constexpr float DefaultInitialValue = 100.0f;
+	static constexpr float DefaultMaxValue = 100.0f;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Resource", meta=(AllowPrivateAccess="true"))
-	float InitialValue = 100.0f;
+	float InitialValue = DefaultInitialValue;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Resource", meta=(AllowPrivateAccess="true"))
-	float MaxValue = 100.0f;
+	float MaxValue = DefaultMaxValue;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Resource", meta=(AllowPrivateAccess="true"))
 	float CurrentValue;

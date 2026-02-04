@@ -4,14 +4,23 @@
 #include "UnrealSpaceInvaders/Projectile.h"
 #include "UnrealSpaceInvaders/Gameplay/PlayerShip.h"
 
+namespace
+{
+	constexpr float DefaultFireRate = 1.0f;
+	constexpr float DefaultProjectileSpeed = 500.0f;
+	constexpr float DefaultProjectileMaxSpeed = 500.0f;
+	constexpr float DefaultProjectileGravityScale = 0.0f;
+	constexpr float DefaultSpawnOffsetZ = 50.0f;
+}
+
 UWeaponComponent::UWeaponComponent()
 {
-    FireRate = 1.0f; // One shot per second
-    ProjectileSpeed = 500.0f; // Projectile speed
-    ProjectileMaxSpeed = 500.0f;
+    FireRate = DefaultFireRate; // One shot per second
+    ProjectileSpeed = DefaultProjectileSpeed; // Projectile speed
+    ProjectileMaxSpeed = DefaultProjectileMaxSpeed;
     bRotationFollowsVelocity = true;
-    ProjectileGravityScale = 0.0f;
-    SpawnOffset = FVector(0.0f, 0.0f, 50.0f); // Offset from the actor's center
+    ProjectileGravityScale = DefaultProjectileGravityScale;
+    SpawnOffset = FVector(0.0f, 0.0f, DefaultSpawnOffsetZ); // Offset from the actor's center
     bFireUpwards = true; // Firing upwards by default
 }
 

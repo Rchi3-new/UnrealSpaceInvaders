@@ -10,6 +10,13 @@
 #include "UnrealSpaceInvaders/Components/WeaponComponent.h"
 #include "UnrealSpaceInvaders/Components/ScoreComponent.h"
 
+namespace
+{
+	constexpr float DefaultWeaponSpawnOffsetZ = 100.0f;
+	constexpr float DefaultCollisionSphereRadius = 50.0f;
+	constexpr int32 DefaultInputMappingPriority = 0;
+}
+
 APlayerShip::APlayerShip()
 {
 	ShipCollision = CreateDefaultSubobject<USphereComponent>(TEXT("ShipCollision"));
@@ -20,7 +27,7 @@ APlayerShip::APlayerShip()
 
 	if (WeaponComponent)
         {
-                WeaponComponent->SpawnOffset = FVector(0.0f, 0.0f, 100.0f);
+                WeaponComponent->SpawnOffset = FVector(0.0f, 0.0f, DefaultWeaponSpawnOffsetZ);
                 WeaponComponent->bFireUpwards = true;
         }
 
@@ -30,7 +37,7 @@ APlayerShip::APlayerShip()
     check(ScoreComponent);
 
 	SetRootComponent(ShipCollision);
-	ShipCollision->SetSphereRadius(50.0);
+	ShipCollision->SetSphereRadius(DefaultCollisionSphereRadius);
 	ShipCollision->SetCollisionProfileName(TEXT("Pawn"));
 	ShipCollision->OnComponentBeginOverlap.AddDynamic(this, &APlayerShip::PlayerShipOverlap);
 	ShipMesh->SetupAttachment(ShipCollision);
@@ -44,7 +51,7 @@ void APlayerShip::BeginPlay()
                 if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<
                         UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
                 {
-                        Subsystem->AddMappingContext(ShipInputMappingContext, 0);
+                        Subsystem->AddMappingContext(ShipInputMappingContext, DefaultInputMappingPriority);
                 }
         }
         if (WeaponComponent)

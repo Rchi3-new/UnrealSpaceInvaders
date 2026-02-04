@@ -29,6 +29,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	static constexpr float DefaultReloadTime = 0.5f;
+
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<USphereComponent> ShipCollision;
 
@@ -68,7 +70,7 @@ protected:
 
         bool bCanAttack = true;
 
-	float ReloadTime = 0.5;
+	float ReloadTime = DefaultReloadTime;
 
 	void Move(const FInputActionValue& Value);
 

@@ -21,8 +21,12 @@ class UNREALSPACEINVADERS_API AHostile : public AActor
 public:
         AHostile();
 
+       static constexpr float DefaultMoveSpeed = 1.0f;
+       static constexpr double DefaultMoveDirection = -1.0;
+       static constexpr int32 DefaultProjectileMax = 8;
+
        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
-       float MoveSpeed = 1.0f;
+       float MoveSpeed = DefaultMoveSpeed;
 
        FORCEINLINE class UWeaponComponent* GetWeaponComponent() const { return WeaponComponent; }
 
@@ -49,9 +53,9 @@ protected:
         TSubclassOf<AProjectile> ActorProjectile;
 
 	FTimerHandle ReloadTimerHandle;
-	double MoveDirection = -1.0;
+	double MoveDirection = DefaultMoveDirection;
 	int32 ProjectileCounter;
-	const int32 ProjectileMax = 8;
+	const int32 ProjectileMax = DefaultProjectileMax;
 
 	UFUNCTION()
 	void ProjectileOverlap(UPrimitiveComponent* OverlappedComponent,

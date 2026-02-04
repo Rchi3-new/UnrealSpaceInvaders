@@ -1,6 +1,13 @@
 #include "TheWall.h"
 #include "UnrealSpaceInvaders/Projectile.h"
 
+namespace
+{
+	constexpr int32 WallCount = 20;
+	constexpr double WallSpacing = 10.0;
+	constexpr double WallScale = 0.1;
+}
+
 void ATheWall::BeginPlay()
 {
 	Super::BeginPlay();
@@ -10,8 +17,8 @@ void ATheWall::BeginPlay()
 void ATheWall::ConstructWall()
 {
 
-	int32 Count = 20;
-	double Spacing = 10.0;
+	int32 Count = WallCount;
+	double Spacing = WallSpacing;
 	int32 Row;
 	int32 Column;
 
@@ -27,9 +34,9 @@ void ATheWall::ConstructWall()
 				{
 					WallComponent->SetStaticMesh(WallMesh);
 					WallComponent->SetupAttachment(RootComponent);
-					WallComponent->SetRelativeTransform(
-						FTransform(FRotator::ZeroRotator, FVector(0.0, Column * Spacing, Row * Spacing),
-						           FVector(0.1, 0.1, 0.1)));
+						WallComponent->SetRelativeTransform(
+							FTransform(FRotator::ZeroRotator, FVector(0.0, Column * Spacing, Row * Spacing),
+							           FVector(WallScale, WallScale, WallScale)));
 					WallComponent->RegisterComponent();
 					WallComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::WallOverlap);
 				}

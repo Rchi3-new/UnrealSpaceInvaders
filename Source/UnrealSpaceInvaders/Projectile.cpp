@@ -7,6 +7,18 @@
 #include "Environment/TheWall.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
+namespace
+{
+	constexpr float ProjectileScaleX = 0.4f;
+	constexpr float ProjectileScaleY = 0.4f;
+	constexpr float ProjectileScaleZ = 0.6f;
+	constexpr float ProjectileCapsuleHalfHeight = 40.0f;
+	constexpr float ProjectileCapsuleRadius = 22.0f;
+	constexpr float ProjectileInitialSpeed = 1000.0f;
+	constexpr float ProjectileMaxSpeed = 1000.0f;
+	constexpr float ProjectileGravityScale = 0.0f;
+}
+
 
 AProjectile::AProjectile()
 {
@@ -20,13 +32,13 @@ AProjectile::AProjectile()
 
         SetRootComponent(ProjectileCollisionCapsule);
         ProjectileMesh->SetupAttachment(ProjectileCollisionCapsule);
-        ProjectileMesh->SetRelativeScale3D(FVector(0.4, 0.4, 0.6));
-        ProjectileCollisionCapsule->SetCapsuleHalfHeight(40.0);
-        ProjectileCollisionCapsule->SetCapsuleRadius(22.0);
-        ProjectileMovement->InitialSpeed = 1000.0f;
-        ProjectileMovement->MaxSpeed = 1000.0f;
+        ProjectileMesh->SetRelativeScale3D(FVector(ProjectileScaleX, ProjectileScaleY, ProjectileScaleZ));
+        ProjectileCollisionCapsule->SetCapsuleHalfHeight(ProjectileCapsuleHalfHeight);
+        ProjectileCollisionCapsule->SetCapsuleRadius(ProjectileCapsuleRadius);
+        ProjectileMovement->InitialSpeed = ProjectileInitialSpeed;
+        ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
         ProjectileMovement->bRotationFollowsVelocity = true;
-        ProjectileMovement->ProjectileGravityScale = 0.0f;
+        ProjectileMovement->ProjectileGravityScale = ProjectileGravityScale;
         ProjectileCollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ProjectileOverlap);
 }
 

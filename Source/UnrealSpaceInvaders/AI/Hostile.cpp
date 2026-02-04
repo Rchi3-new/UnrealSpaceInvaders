@@ -9,6 +9,17 @@
 #include "UnrealSpaceInvaders/Projectile.h"
 #include "UnrealSpaceInvaders/UnrealSpaceInvadersGameModeBase.h"
 
+namespace
+{
+	constexpr float WeaponSpawnOffsetZ = -100.0f;
+	constexpr float HostileCollisionExtent = 51.0f;
+	constexpr float HostileMoveInterval = 0.05f;
+	constexpr double MovementDirectionFlip = -1.0;
+	constexpr float DefaultDifficultyMultiplier = 1.0f;
+	constexpr float FireDelayMinSeconds = 2.0f;
+	constexpr float FireDelayMaxSeconds = 5.0f;
+}
+
 AHostile::AHostile()
 {
 	HostileCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("HostileCollision"));
@@ -16,7 +27,7 @@ AHostile::AHostile()
         WeaponComponent = CreateDefaultSubobject<UWeaponComponent>(TEXT("WeaponComponent"));
         if (WeaponComponent)
         {
-                WeaponComponent->SpawnOffset = FVector(0.0f, 0.0f, -100.0f);
+                WeaponComponent->SpawnOffset = FVector(0.0f, 0.0f, WeaponSpawnOffsetZ);
                 WeaponComponent->bFireUpwards = false;
         }
 
@@ -26,7 +37,7 @@ AHostile::AHostile()
 
 	SetRootComponent(HostileCollision);
 	HostileMesh->SetupAttachment(HostileCollision);
-	HostileCollision->SetBoxExtent(FVector(51.0, 51.0, 51.0));
+	HostileCollision->SetBoxExtent(FVector(HostileCollisionExtent, HostileCollisionExtent, HostileCollisionExtent));
 	HostileCollision->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ProjectileOverlap);
 	NiagaraEffect = LoadObject<UNiagaraSystem>(nullptr, TEXT("/Game/Hostiles/VFX/NS_DestroyEffect"));
 	//	BlastSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Hostiles/Sound/SW_DestroyHostile"));
@@ -43,7 +54,7 @@ void AHostile::BeginPlay()
 
 	if (FTimerHandle MoveTimer; !MoveTimer.IsValid())
 	{
-		GetWorldTimerManager().SetTimer(MoveTimer, this, &ThisClass::Move, 0.05, true);
+		GetWorldTimerManager().SetTimer(MoveTimer, this, &ThisClass::Move, HostileMoveInterval, true);
 	}
 }
 
@@ -88,25 +99,25 @@ void AHostile::ChangeMovementDirection()
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), StaticClass(), OutActors);
 	for (AActor* HostileActor : OutActors)
 	{
-		if
-		(AHostile* HostileActorDude = Cast<AHostile>(HostileActor))
-		{
-			HostileActorDude->MoveDirection *= -1.0;
-		}
+			if
+			(AHostile* HostileActorDude = Cast<AHostile>(HostileActor))
+			{
+				HostileActorDude->MoveDirection *= MovementDirectionFlip;
+			}
 	}
 }
 
 void AHostile::Move()
 {
        AUnrealSpaceInvadersGameModeBase* GM = GetWorld() ? GetWorld()->GetAuthGameMode<AUnrealSpaceInvadersGameModeBase>() : nullptr;
-       const float Multiplier = GM ? GM->DifficultyMultiplier : 1.0f;
+       const float Multiplier = GM ? GM->DifficultyMultiplier : DefaultDifficultyMultiplier;
        const FVector NewLocation = GetActorLocation() + FVector(0.0, MoveDirection * MoveSpeed * Multiplier, 0.0);
        SetActorLocation(NewLocation);
 }
 
 void AHostile::BeginFire()
 {
-	const float FireDelay = FMath::RandRange(2.0, 5.0);
+	const float FireDelay = FMath::RandRange(FireDelayMinSeconds, FireDelayMaxSeconds);
 	if (!ReloadTimerHandle.IsValid())
 	{
 		GetWorldTimerManager().SetTimer(ReloadTimerHandle, this, &AHostile::SpawnProjectile, FireDelay, false);
